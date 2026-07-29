@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vibration/vibration.dart';
+import 'package:billing_app/core/utils/sound_helper.dart';
 
 class ScannerPage extends StatefulWidget {
   const ScannerPage({super.key});
@@ -35,7 +36,8 @@ class _ScannerPageState extends State<ScannerPage> {
         if (hasVibrator == true) {
           Vibration.vibrate();
         }
-
+        // Play beep sound
+        SoundHelper().playBeep();
         if (mounted) {
           context.pop(barcode.rawValue);
         }

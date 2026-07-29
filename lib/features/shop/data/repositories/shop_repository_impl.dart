@@ -18,12 +18,12 @@ class ShopRepositoryImpl implements ShopRepository {
       } else {
         // Return default shop if not found
         return const Right(Shop(
-            name: 'Dinesh Shop',
-            addressLine1: 'Samrajpet, Mecheri',
-            addressLine2: 'Salem - 636453',
-            phoneNumber: '+917010674588',
+            name: 'Papeleria El Sol',
+            addressLine1: '5a sur entre 5a y 4a poniente',
+            addressLine2: '',
+            phoneNumber: '+9612118404',
             upiId: 'dineshsowndar@oksbi',
-            footerText: 'Thank you, Visit again!!!'));
+            footerText: 'Gracias por tu visita!!!'));
       }
     } catch (e) {
       return Left(CacheFailure(e.toString()));

@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vibration/vibration.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
-
+import 'package:billing_app/core/utils/sound_helper.dart';
 import '../../../billing/presentation/bloc/billing_bloc.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../core/widgets/primary_button.dart';
@@ -57,6 +57,9 @@ class _HomePageState extends State<HomePage> {
         if (hasVibrator == true) {
           Vibration.vibrate();
         }
+        
+        // Play beep sound
+        SoundHelper().playBeep();
 
         if (mounted) {
           context.read<BillingBloc>().add(ScanBarcodeEvent(rawValue));
@@ -360,7 +363,7 @@ class _HomePageState extends State<HomePage> {
                                 color: Colors.grey,
                                 letterSpacing: 1.2)),
                         Text(
-                          '₹${state.totalAmount.toStringAsFixed(2)}',
+                          '\$${state.totalAmount.toStringAsFixed(2)}',
                           style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.w900,
@@ -468,7 +471,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  '₹${item.product.price.toStringAsFixed(2)}',
+                  '\$${item.product.price.toStringAsFixed(2)}',
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 14,
