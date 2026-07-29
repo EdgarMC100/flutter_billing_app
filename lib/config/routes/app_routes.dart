@@ -36,7 +36,8 @@ final router = GoRouter(
       routes: [
         GoRoute(
           path: 'add',
-          builder: (context, state) => const AddProductPage(),
+          builder: (context, state) =>
+              AddProductPage(initialBarcode: state.extra as String?),
         ),
         GoRoute(
           path: 'edit/:id',

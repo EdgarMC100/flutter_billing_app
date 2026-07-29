@@ -11,7 +11,9 @@ import '../../../../core/theme/app_theme.dart';
 import '../../../../core/utils/app_validators.dart';
 
 class AddProductPage extends StatefulWidget {
-  const AddProductPage({super.key});
+  final String? initialBarcode;
+
+  const AddProductPage({super.key, this.initialBarcode});
 
   @override
   State<AddProductPage> createState() => _AddProductPageState();
@@ -22,6 +24,12 @@ class _AddProductPageState extends State<AddProductPage> {
   String _name = '';
   String _barcode = '';
   double _price = 0.0;
+
+  @override
+  void initState() {
+    super.initState();
+    _barcode = widget.initialBarcode ?? '';
+  }
 
   void _scanBarcode() async {
     final result = await context.push<String>('/scanner');

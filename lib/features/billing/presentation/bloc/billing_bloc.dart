@@ -20,24 +20,30 @@ class BillingBloc extends Bloc<BillingEvent, BillingState> {
     on<UpdateQuantityEvent>(_onUpdateQuantity);
     on<ClearCartEvent>(_onClearCart);
     on<PrintReceiptEvent>(_onPrintReceipt);
+    on<ClearScanFeedbackEvent>(_onClearScanFeedback);
   }
 
   Future<void> _onScanBarcode(
       ScanBarcodeEvent event, Emitter<BillingState> emit) async {
     final result = await getProductByBarcodeUseCase(event.barcode);
     result.fold(
-      (failure) =>
-          emit(state.copyWith(error: 'Product not found: ${event.barcode}')),
+      (failure) => emit(state.copyWith(notFoundBarcode: event.barcode)),
       (product) {
         add(AddProductToCartEvent(product));
       },
     );
   }
 
+  void _onClearScanFeedback(
+      ClearScanFeedbackEvent event, Emitter<BillingState> emit) {
+    emit(state.copyWith(clearError: true, clearNotFoundBarcode: true));
+  }
+
   void _onAddProductToCart(
       AddProductToCartEvent event, Emitter<BillingState> emit) {
     // Clear error when adding
-    final cleanState = state.copyWith(error: null);
+    final cleanState =
+        state.copyWith(error: null, clearNotFoundBarcode: true);
 
     final existingIndex = cleanState.cartItems
         .indexWhere((item) => item.product.id == event.product.id);

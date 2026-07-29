@@ -69,23 +69,68 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  Future<void> _showProductNotFoundDialog(
+      BuildContext context, String barcode) async {
+    _scannerController.stop();
+    final billingBloc = context.read<BillingBloc>();
+
+    final shouldAdd = await showDialog<bool>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: const Text('Product Not Found'),
+        content: Text(
+            'No product matches barcode "$barcode".\nWould you like to add it to your inventory?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(dialogContext).pop(false),
+            child: const Text('Cancel'),
+          ),
+          ElevatedButton(
+            onPressed: () => Navigator.of(dialogContext).pop(true),
+            child: const Text('Add Product'),
+          ),
+        ],
+      ),
+    );
+
+    billingBloc.add(ClearScanFeedbackEvent());
+
+    if (shouldAdd == true && mounted) {
+      await context.push('/products/add', extra: barcode);
+    }
+
+    if (_isCameraOn && mounted) _scannerController.start();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocListener<BillingBloc, BillingState>(
-        listenWhen: (previous, current) =>
-            previous.error != current.error && current.error != null,
-        listener: (context, state) {
-          if (state.error != null) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(state.error!),
-                backgroundColor: Colors.red,
-                behavior: SnackBarBehavior.floating,
-              ),
-            );
-          }
-        },
+      body: MultiBlocListener(
+        listeners: [
+          BlocListener<BillingBloc, BillingState>(
+            listenWhen: (previous, current) =>
+                previous.error != current.error && current.error != null,
+            listener: (context, state) {
+              if (state.error != null) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(state.error!),
+                    backgroundColor: Colors.red,
+                    behavior: SnackBarBehavior.floating,
+                  ),
+                );
+              }
+            },
+          ),
+          BlocListener<BillingBloc, BillingState>(
+            listenWhen: (previous, current) =>
+                previous.notFoundBarcode != current.notFoundBarcode &&
+                current.notFoundBarcode != null,
+            listener: (context, state) {
+              _showProductNotFoundDialog(context, state.notFoundBarcode!);
+            },
+          ),
+        ],
         child: Stack(
           children: [
             // SCANNER VIEW (TOP 50%)
