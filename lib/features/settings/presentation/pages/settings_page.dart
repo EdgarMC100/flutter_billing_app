@@ -4,10 +4,14 @@ import 'package:go_router/go_router.dart';
 import 'package:app_settings/app_settings.dart';
 
 import '../../../../core/theme/app_theme.dart';
+import '../../../../l10n/generated/app_localizations.dart';
 import '../../../shop/presentation/bloc/shop_bloc.dart';
 import '../bloc/printer_bloc.dart';
 import '../bloc/printer_event.dart';
 import '../bloc/printer_state.dart';
+import '../bloc/locale_bloc.dart';
+import '../bloc/locale_event.dart';
+import '../bloc/locale_state.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -26,10 +30,11 @@ class _SettingsPageState extends State<SettingsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Settings',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+        title: Text(l10n.settingsAppBarTitle,
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
         centerTitle: true,
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -98,20 +103,20 @@ class _SettingsPageState extends State<SettingsPage> {
             const SizedBox(height: 24),
 
             // Management Section
-            _buildSectionHeader('Management'),
+            _buildSectionHeader(l10n.settingsManagementSectionTitle),
             _buildListGroup(
               children: [
                 _buildListItem(
                   icon: Icons.qr_code_scanner,
-                  title: 'Products',
-                  subtitle: 'Manage stock and barcodes',
+                  title: l10n.settingsProductsTitle,
+                  subtitle: l10n.settingsProductsSubtitle,
                   onTap: () => context.push('/products'),
                 ),
                 _buildDivider(),
                 _buildListItem(
                   icon: Icons.storefront,
-                  title: 'Shop Details',
-                  subtitle: 'Edit business info & address',
+                  title: l10n.settingsShopDetailsTitle,
+                  subtitle: l10n.settingsShopDetailsSubtitle,
                   onTap: () => context.push('/shop'),
                 ),
               ],
@@ -120,16 +125,17 @@ class _SettingsPageState extends State<SettingsPage> {
             const SizedBox(height: 24),
 
             // Hardware Section
-            _buildSectionHeader('Hardware'),
+            _buildSectionHeader(l10n.settingsHardwareSectionTitle),
             BlocConsumer<PrinterBloc, PrinterState>(
               listener: (context, state) {
                 if (state.errorMessage != null) {
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Text(state.errorMessage!),
+                      content: Text(_printerErrorMessage(
+                          l10n, state.errorMessage!)),
                       backgroundColor: Colors.red));
                 } else if (state.status == PrinterStatus.connected) {
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text('Connected to printer'),
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text(l10n.settingsPrinterConnectedSnackbar),
                       backgroundColor: Colors.green));
                 }
               },
@@ -138,13 +144,14 @@ class _SettingsPageState extends State<SettingsPage> {
                   children: [
                     _buildListItem(
                       icon: Icons.print,
-                      title: 'Print Device',
+                      title: l10n.settingsPrintDeviceTitle,
                       subtitleWidget: Row(
                         children: [
                           Text(
                             state.connectedMac != null
-                                ? (state.connectedName ?? 'Printer connected')
-                                : 'No printer connected',
+                                ? (state.connectedName ??
+                                    l10n.settingsPrinterConnectedFallback)
+                                : l10n.settingsNoPrinterConnected,
                             style: TextStyle(
                                 fontSize: 12, color: Colors.grey[500]),
                           ),
@@ -158,7 +165,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                   borderRadius: BorderRadius.circular(10),
                                   border: Border.all(color: Colors.teal[200]!)),
                               child: Text(
-                                'CONNECTED',
+                                l10n.settingsConnectedBadge,
                                 style: TextStyle(
                                     fontSize: 9,
                                     fontWeight: FontWeight.bold,
@@ -205,7 +212,7 @@ class _SettingsPageState extends State<SettingsPage> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
               child: Text(
-                "To connect a new device, tap on the Settings gear to pair in phone's Bluetooth settings, then return and hit Refresh.",
+                l10n.settingsPrinterHelpText,
                 style: TextStyle(
                     fontSize: 11,
                     fontStyle: FontStyle.italic,
@@ -213,8 +220,84 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
             ),
 
+            const SizedBox(height: 24),
+
+            // Preferences Section
+            _buildSectionHeader(
+                AppLocalizations.of(context).settingsPreferencesSectionTitle),
+            BlocBuilder<LocaleBloc, LocaleState>(
+              builder: (context, state) {
+                return _buildListGroup(
+                  children: [
+                    _buildListItem(
+                      icon: Icons.language,
+                      title: AppLocalizations.of(context).settingsLanguageTitle,
+                      subtitle: _languageDisplayName(
+                          context, state.locale.languageCode),
+                      onTap: () => _showLanguageDialog(context),
+                    ),
+                  ],
+                );
+              },
+            ),
+
             const SizedBox(height: 48),
           ],
+        ),
+      ),
+    );
+  }
+
+  String _printerErrorMessage(AppLocalizations l10n, String code) {
+    switch (code) {
+      case PrinterMessageCode.noPairedDevices:
+        return l10n.settingsPrinterNoPairedDevices;
+      case PrinterMessageCode.noDeviceConnectable:
+        return l10n.settingsPrinterNoDeviceConnectable;
+      case PrinterMessageCode.connectionFailed:
+        return l10n.settingsPrinterConnectionFailed;
+      default:
+        return code;
+    }
+  }
+
+  String _languageDisplayName(BuildContext context, String code) {
+    switch (code) {
+      case 'es':
+        return AppLocalizations.of(context).languageNameSpanish;
+      case 'en':
+      default:
+        return AppLocalizations.of(context).languageNameEnglish;
+    }
+  }
+
+  Future<void> _showLanguageDialog(BuildContext context) async {
+    final localeBloc = context.read<LocaleBloc>();
+    final currentCode = localeBloc.state.locale.languageCode;
+
+    await showDialog<void>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: Text(AppLocalizations.of(context).settingsLanguageDialogTitle),
+        content: RadioGroup<String>(
+          groupValue: currentCode,
+          onChanged: (code) {
+            localeBloc.add(ChangeLocaleEvent(code!));
+            Navigator.of(dialogContext).pop();
+          },
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              RadioListTile<String>(
+                value: 'en',
+                title: Text(AppLocalizations.of(context).languageNameEnglish),
+              ),
+              RadioListTile<String>(
+                value: 'es',
+                title: Text(AppLocalizations.of(context).languageNameSpanish),
+              ),
+            ],
+          ),
         ),
       ),
     );

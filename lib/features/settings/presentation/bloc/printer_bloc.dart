@@ -3,6 +3,17 @@ import '../../domain/repositories/printer_repository.dart';
 import 'printer_event.dart';
 import 'printer_state.dart';
 
+/// Stable codes emitted as [PrinterState.errorMessage] so the presentation
+/// layer (which has a `BuildContext`) can resolve them to a localized
+/// string. The bloc has no `BuildContext`, so it cannot call
+/// `AppLocalizations` directly. Raw exception text (via `e.toString()`)
+/// bypasses this and is shown untranslated, same as elsewhere in the app.
+abstract class PrinterMessageCode {
+  static const noPairedDevices = 'printer_no_paired_devices';
+  static const noDeviceConnectable = 'printer_no_device_connectable';
+  static const connectionFailed = 'printer_connection_failed';
+}
+
 class PrinterBloc extends Bloc<PrinterEvent, PrinterState> {
   final PrinterRepository repository;
 
@@ -33,7 +44,7 @@ class PrinterBloc extends Bloc<PrinterEvent, PrinterState> {
       if (devices.isEmpty) {
         emit(state.copyWith(
           status: PrinterStatus.scanFailure,
-          errorMessage: 'No paired devices found.',
+          errorMessage: PrinterMessageCode.noPairedDevices,
           devices: [],
         ));
         return;
@@ -59,7 +70,7 @@ class PrinterBloc extends Bloc<PrinterEvent, PrinterState> {
       if (!connected) {
         emit(state.copyWith(
           status: PrinterStatus.scanFailure,
-          errorMessage: 'Could not connect to any paired device.',
+          errorMessage: PrinterMessageCode.noDeviceConnectable,
           devices: devices,
         ));
       }
@@ -102,7 +113,7 @@ class PrinterBloc extends Bloc<PrinterEvent, PrinterState> {
     } else {
       emit(state.copyWith(
         status: PrinterStatus.connectionFailure,
-        errorMessage: 'Failed to connect to printer',
+        errorMessage: PrinterMessageCode.connectionFailed,
       ));
     }
   }

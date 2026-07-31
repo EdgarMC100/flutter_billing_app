@@ -8,6 +8,7 @@ import '../bloc/product_bloc.dart';
 import '../../domain/entities/product.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../core/utils/app_validators.dart';
+import '../../../../l10n/generated/app_localizations.dart';
 
 class EditProductPage extends StatefulWidget {
   final Product product;
@@ -47,6 +48,7 @@ class _EditProductPageState extends State<EditProductPage> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return Scaffold(
         appBar: AppBar(
           elevation: 0,
@@ -55,8 +57,8 @@ class _EditProductPageState extends State<EditProductPage> {
                 size: 32, color: Theme.of(context).primaryColor),
             onPressed: () => context.pop(),
           ),
-          title: const Text('Edit Product',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+          title: Text(l10n.editProductAppBarTitle,
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
           centerTitle: true,
         ),
         body: SafeArea(
@@ -85,7 +87,7 @@ class _EditProductPageState extends State<EditProductPage> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('BARCODE',
+                            Text(l10n.editProductBarcodeFieldLabel,
                                 style: TextStyle(
                                     fontSize: 12,
                                     fontWeight: FontWeight.bold,
@@ -103,17 +105,18 @@ class _EditProductPageState extends State<EditProductPage> {
                     ),
                   ),
 
-                  const InputLabel(text: 'Product Name'),
+                  InputLabel(text: l10n.productFormNameLabel),
 
                   TextFormField(
                     initialValue: _name,
                     textCapitalization: TextCapitalization.words,
-                    validator: AppValidators.required('Please enter a name'),
+                    validator:
+                        AppValidators.required(l10n.productNameRequiredError),
                     onSaved: (value) => _name = value!,
                   ),
                   const SizedBox(height: 24),
 
-                  const InputLabel(text: 'Price'),
+                  InputLabel(text: l10n.productFormPriceLabel),
 
                   TextFormField(
                     initialValue: _price.toStringAsFixed(2),
@@ -126,7 +129,11 @@ class _EditProductPageState extends State<EditProductPage> {
                           fontWeight: FontWeight.w500,
                           color: Colors.black),
                     ),
-                    validator: AppValidators.price,
+                    validator: AppValidators.price(
+                      requiredMessage: l10n.productPriceRequiredError,
+                      invalidMessage: l10n.productPriceInvalidError,
+                      negativeMessage: l10n.productPriceNegativeError,
+                    ),
                     onSaved: (value) => _price = double.parse(value!),
                   ),
                 ],
@@ -137,7 +144,7 @@ class _EditProductPageState extends State<EditProductPage> {
         bottomNavigationBar: PrimaryButton(
           onPressed: _submit,
           icon: Icons.save,
-          label: 'Save Changes',
+          label: l10n.editProductSaveButton,
         ));
   }
 }

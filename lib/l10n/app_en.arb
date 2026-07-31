@@ -1,0 +1,398 @@
+{
+  "@@locale": "en",
+  "settingsAppBarTitle": "Settings",
+  "@settingsAppBarTitle": {
+    "description": "App bar title of the settings page"
+  },
+  "settingsManagementSectionTitle": "Management",
+  "@settingsManagementSectionTitle": {
+    "description": "Section header grouping Products and Shop Details rows"
+  },
+  "settingsProductsTitle": "Products",
+  "@settingsProductsTitle": {
+    "description": "Title of the row that navigates to product management"
+  },
+  "settingsProductsSubtitle": "Manage stock and barcodes",
+  "@settingsProductsSubtitle": {
+    "description": "Subtitle of the Products row"
+  },
+  "settingsShopDetailsTitle": "Shop Details",
+  "@settingsShopDetailsTitle": {
+    "description": "Title of the row that navigates to shop details"
+  },
+  "settingsShopDetailsSubtitle": "Edit business info & address",
+  "@settingsShopDetailsSubtitle": {
+    "description": "Subtitle of the Shop Details row"
+  },
+  "settingsHardwareSectionTitle": "Hardware",
+  "@settingsHardwareSectionTitle": {
+    "description": "Section header grouping printer settings"
+  },
+  "settingsPrinterConnectedSnackbar": "Connected to printer",
+  "@settingsPrinterConnectedSnackbar": {
+    "description": "Snackbar shown when a Bluetooth printer connects successfully"
+  },
+  "settingsPrintDeviceTitle": "Print Device",
+  "@settingsPrintDeviceTitle": {
+    "description": "Title of the printer row in the Hardware section"
+  },
+  "settingsPrinterConnectedFallback": "Printer connected",
+  "@settingsPrinterConnectedFallback": {
+    "description": "Subtitle shown when a printer is connected but has no reported name"
+  },
+  "settingsNoPrinterConnected": "No printer connected",
+  "@settingsNoPrinterConnected": {
+    "description": "Subtitle shown when no printer is connected"
+  },
+  "settingsConnectedBadge": "CONNECTED",
+  "@settingsConnectedBadge": {
+    "description": "Small badge shown next to the printer name when connected"
+  },
+  "settingsPrinterHelpText": "To connect a new device, tap on the Settings gear to pair in phone's Bluetooth settings, then return and hit Refresh.",
+  "@settingsPrinterHelpText": {
+    "description": "Helper text under the printer row explaining how to pair a new device"
+  },
+  "settingsPreferencesSectionTitle": "Preferences",
+  "@settingsPreferencesSectionTitle": {
+    "description": "Section header in Settings grouping user preferences like language"
+  },
+  "settingsLanguageTitle": "Language",
+  "@settingsLanguageTitle": {
+    "description": "Title of the Language row in the Settings Preferences section"
+  },
+  "settingsLanguageDialogTitle": "Select Language",
+  "@settingsLanguageDialogTitle": {
+    "description": "Title of the dialog used to pick the app language"
+  },
+  "languageNameEnglish": "English",
+  "@languageNameEnglish": {
+    "description": "Display name for the English language option"
+  },
+  "languageNameSpanish": "Español",
+  "@languageNameSpanish": {
+    "description": "Display name for the Spanish language option"
+  },
+  "commonCancel": "Cancel",
+  "@commonCancel": {
+    "description": "Generic label for a Cancel button/action, reused across dialogs"
+  },
+  "homeProductNotFoundTitle": "Product Not Found",
+  "@homeProductNotFoundTitle": {
+    "description": "Title of the dialog shown when a scanned barcode has no matching product"
+  },
+  "homeProductNotFoundMessage": "No product matches barcode \"{barcode}\".\nWould you like to add it to your inventory?",
+  "@homeProductNotFoundMessage": {
+    "description": "Body of the product-not-found dialog",
+    "placeholders": {
+      "barcode": {
+        "type": "String",
+        "example": "0123456789012"
+      }
+    }
+  },
+  "commonAddProduct": "Add Product",
+  "@commonAddProduct": {
+    "description": "Generic label for adding a product, reused as a dialog action, app bar title, and submit button"
+  },
+  "homeReviewOrderButton": "Review Order",
+  "@homeReviewOrderButton": {
+    "description": "Bottom sheet button label to proceed to checkout"
+  },
+  "homeCameraOffTitle": "Camera is turned off",
+  "@homeCameraOffTitle": {
+    "description": "Heading shown in the scanner section when the camera is off"
+  },
+  "homeCameraOffMessage": "Turn on your camera to start scanning barcodes and items automatically.",
+  "@homeCameraOffMessage": {
+    "description": "Explanatory text shown under homeCameraOffTitle"
+  },
+  "homeTurnOnCameraButton": "Turn on Camera",
+  "@homeTurnOnCameraButton": {
+    "description": "Button label to re-enable the camera"
+  },
+  "homeScannedItemsTitle": "Scanned Items",
+  "@homeScannedItemsTitle": {
+    "description": "Header title above the cart list on the home page"
+  },
+  "homeItemsTotalCount": "{count} items total",
+  "@homeItemsTotalCount": {
+    "description": "Subtitle showing total quantity of scanned items",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "homeTotalPriceLabel": "TOTAL PRICE",
+  "@homeTotalPriceLabel": {
+    "description": "Label above the cart total amount"
+  },
+  "homeEmptyCartTitle": "List is empty",
+  "@homeEmptyCartTitle": {
+    "description": "Heading shown when the cart has no items"
+  },
+  "homeEmptyCartMessage": "Scanned items will appear here as you scan them with the camera above.",
+  "@homeEmptyCartMessage": {
+    "description": "Explanatory text shown under homeEmptyCartTitle"
+  },
+  "commonDelete": "Delete",
+  "@commonDelete": {
+    "description": "Generic label for a Delete button/action, reused across dialogs"
+  },
+  "productListAppBarTitle": "Product Management",
+  "@productListAppBarTitle": {
+    "description": "App bar title of the product list/management page"
+  },
+  "productBarcodeHint": "Scan or enter barcode",
+  "@productBarcodeHint": {
+    "description": "Hint text of a barcode field, reused on the product list search bar and product form"
+  },
+  "productBarcodeRequiredError": "Please enter a barcode",
+  "@productBarcodeRequiredError": {
+    "description": "Validation message when a barcode field is submitted empty"
+  },
+  "productScannerHint": "Tap the icon to open camera scanner",
+  "@productScannerHint": {
+    "description": "Helper text explaining the scanner icon, reused on the product list and product form"
+  },
+  "productListErrorPrefix": "Error: {message}",
+  "@productListErrorPrefix": {
+    "description": "Prefix shown before a bloc error message on the product list page",
+    "placeholders": {
+      "message": {
+        "type": "String"
+      }
+    }
+  },
+  "productListEmptyTitle": "No products found. Add some!",
+  "@productListEmptyTitle": {
+    "description": "Shown when the product list is empty"
+  },
+  "productListNoSearchResults": "No products match your search.",
+  "@productListNoSearchResults": {
+    "description": "Shown when a search query filters out all products"
+  },
+  "productListDeleteDialogTitle": "Delete Product",
+  "@productListDeleteDialogTitle": {
+    "description": "Title of the confirm-delete dialog on the product list page"
+  },
+  "productListDeleteDialogMessage": "Are you sure you want to delete {productName}?",
+  "@productListDeleteDialogMessage": {
+    "description": "Body of the confirm-delete dialog on the product list page",
+    "placeholders": {
+      "productName": {
+        "type": "String"
+      }
+    }
+  },
+  "productFormBarcodeLabel": "Barcode",
+  "@productFormBarcodeLabel": {
+    "description": "Field label for the barcode input on the add product form"
+  },
+  "productFormNameLabel": "Product Name",
+  "@productFormNameLabel": {
+    "description": "Field label for the product name input, reused on add and edit product forms"
+  },
+  "productFormNameHint": "e.g. Basmati Rice",
+  "@productFormNameHint": {
+    "description": "Placeholder text for the product name input on the add product form"
+  },
+  "productNameRequiredError": "Please enter a name",
+  "@productNameRequiredError": {
+    "description": "Validation message when the product name field is submitted empty, reused on add and edit forms"
+  },
+  "productFormPriceLabel": "Price",
+  "@productFormPriceLabel": {
+    "description": "Field label for the price input, reused on add and edit product forms"
+  },
+  "productFormPriceHint": "0.00",
+  "@productFormPriceHint": {
+    "description": "Placeholder text for the price input on the add product form"
+  },
+  "productPriceRequiredError": "Please enter a price",
+  "@productPriceRequiredError": {
+    "description": "Validation message when the price field is submitted empty"
+  },
+  "productPriceInvalidError": "Please enter a valid number",
+  "@productPriceInvalidError": {
+    "description": "Validation message when the price field is not a valid number"
+  },
+  "productPriceNegativeError": "Price cannot be negative",
+  "@productPriceNegativeError": {
+    "description": "Validation message when the price field is negative"
+  },
+  "productBarcodeExistsError": "Product with barcode \"{barcode}\" already exists!",
+  "@productBarcodeExistsError": {
+    "description": "Error shown when submitting a new product whose barcode already matches an existing product",
+    "placeholders": {
+      "barcode": {
+        "type": "String"
+      }
+    }
+  },
+  "editProductAppBarTitle": "Edit Product",
+  "@editProductAppBarTitle": {
+    "description": "App bar title of the edit product page"
+  },
+  "editProductBarcodeFieldLabel": "BARCODE",
+  "@editProductBarcodeFieldLabel": {
+    "description": "Small uppercase label above the read-only barcode value on the edit product page"
+  },
+  "editProductSaveButton": "Save Changes",
+  "@editProductSaveButton": {
+    "description": "Submit button label on the edit product page"
+  },
+  "checkoutAppBarTitle": "Checkout",
+  "@checkoutAppBarTitle": {
+    "description": "App bar title of the checkout page"
+  },
+  "checkoutPrintedSuccessfully": "Printed successfully",
+  "@checkoutPrintedSuccessfully": {
+    "description": "Snackbar shown after a receipt prints successfully"
+  },
+  "checkoutColumnProductName": "Product Name",
+  "@checkoutColumnProductName": {
+    "description": "Header of the product name column in the checkout items table"
+  },
+  "checkoutColumnPrice": "Price",
+  "@checkoutColumnPrice": {
+    "description": "Header of the unit price column in the checkout items table"
+  },
+  "checkoutColumnTotal": "Total",
+  "@checkoutColumnTotal": {
+    "description": "Header of the line total column in the checkout items table"
+  },
+  "checkoutScanToPay": "Scan to Pay",
+  "@checkoutScanToPay": {
+    "description": "Heading above the UPI payment QR code"
+  },
+  "checkoutGrandTotalLabel": "GRAND TOTAL",
+  "@checkoutGrandTotalLabel": {
+    "description": "Label above the final total amount on the checkout bottom bar"
+  },
+  "checkoutShopDetailsNotLoaded": "Shop details not loaded",
+  "@checkoutShopDetailsNotLoaded": {
+    "description": "Snackbar shown when trying to print a receipt before shop details have loaded"
+  },
+  "checkoutPrintReceiptButton": "Print Receipt",
+  "@checkoutPrintReceiptButton": {
+    "description": "Button label to print the receipt"
+  },
+  "scannerAppBarTitle": "Scan Barcode",
+  "@scannerAppBarTitle": {
+    "description": "App bar title of the standalone barcode scanner page"
+  },
+  "scannerAlignHint": "Align barcode within frame",
+  "@scannerAlignHint": {
+    "description": "Instructional text shown under the scan frame"
+  },
+  "commonRequiredError": "Required",
+  "@commonRequiredError": {
+    "description": "Generic validation message for a required field, reused across forms"
+  },
+  "shopDetailsAppBarTitle": "Shop Details",
+  "@shopDetailsAppBarTitle": {
+    "description": "App bar title of the shop details page"
+  },
+  "shopDetailsSavedSnackbar": "Shop details saved!",
+  "@shopDetailsSavedSnackbar": {
+    "description": "Snackbar shown after shop details are saved successfully"
+  },
+  "shopDetailsGeneralInfoSectionTitle": "General Information",
+  "@shopDetailsGeneralInfoSectionTitle": {
+    "description": "Section header above the shop details form"
+  },
+  "shopDetailsSectionSubtitle": "These details will appear on your digital and printed receipts.",
+  "@shopDetailsSectionSubtitle": {
+    "description": "Explanatory text under the General Information section header"
+  },
+  "shopDetailsNameLabel": "Shop Name",
+  "@shopDetailsNameLabel": {
+    "description": "Field label for the shop name input"
+  },
+  "shopDetailsAddress1Label": "Address Line 1",
+  "@shopDetailsAddress1Label": {
+    "description": "Field label for the first address line input"
+  },
+  "shopDetailsAddress2Label": "Address Line 2 (Optional)",
+  "@shopDetailsAddress2Label": {
+    "description": "Field label for the second, optional address line input"
+  },
+  "shopDetailsPhoneLabel": "Phone Number",
+  "@shopDetailsPhoneLabel": {
+    "description": "Field label for the phone number input"
+  },
+  "shopDetailsUpiIdLabel": "UPI ID",
+  "@shopDetailsUpiIdLabel": {
+    "description": "Field label for the UPI payment ID input"
+  },
+  "shopDetailsFooterTextLabel": "Receipt Footer Text",
+  "@shopDetailsFooterTextLabel": {
+    "description": "Field label for the printed receipt footer text input"
+  },
+  "shopDetailsFooterMaxChars": "Max 150 chars",
+  "@shopDetailsFooterMaxChars": {
+    "description": "Helper text next to the footer text label noting the character limit"
+  },
+  "shopDetailsSaveButton": "Save Details",
+  "@shopDetailsSaveButton": {
+    "description": "Submit button label on the shop details page"
+  },
+  "productAddedSuccessMessage": "Product added successfully",
+  "@productAddedSuccessMessage": {
+    "description": "Snackbar shown after a product is added"
+  },
+  "productUpdatedSuccessMessage": "Product updated successfully",
+  "@productUpdatedSuccessMessage": {
+    "description": "Snackbar shown after a product is updated"
+  },
+  "productDeletedSuccessMessage": "Product deleted successfully",
+  "@productDeletedSuccessMessage": {
+    "description": "Snackbar shown after a product is deleted"
+  },
+  "settingsPrinterNoPairedDevices": "No paired devices found.",
+  "@settingsPrinterNoPairedDevices": {
+    "description": "Printer error shown when no paired Bluetooth devices are found while refreshing"
+  },
+  "settingsPrinterNoDeviceConnectable": "Could not connect to any paired device.",
+  "@settingsPrinterNoDeviceConnectable": {
+    "description": "Printer error shown when none of the paired devices could be connected to"
+  },
+  "settingsPrinterConnectionFailed": "Failed to connect to printer",
+  "@settingsPrinterConnectionFailed": {
+    "description": "Printer error shown when connecting to a specific selected device fails"
+  },
+  "billingAutoConnectFailed": "Failed to auto-connect to printer!",
+  "@billingAutoConnectFailed": {
+    "description": "Error shown on checkout when auto-connecting to the saved printer fails"
+  },
+  "billingNoPrinterConfigured": "Printer not connected & no saved printer found!",
+  "@billingNoPrinterConfigured": {
+    "description": "Error shown on checkout when no printer is connected and none was previously saved"
+  },
+  "billingPrintFailedError": "Print failed: {error}",
+  "@billingPrintFailedError": {
+    "description": "Error shown on checkout when printing throws an exception; error is the raw exception text and is not translated",
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "receiptColumnItem": "Item",
+  "@receiptColumnItem": {
+    "description": "Item column header printed on the thermal receipt, resolved by the caller since printer_helper.dart has no BuildContext"
+  },
+  "receiptColumnPrice": "Price",
+  "@receiptColumnPrice": {
+    "description": "Price column header printed on the thermal receipt"
+  },
+  "receiptColumnTotal": "Total",
+  "@receiptColumnTotal": {
+    "description": "Total column header printed on the thermal receipt"
+  },
+  "receiptTotalPrefix": "TOTAL",
+  "@receiptTotalPrefix": {
+    "description": "Label printed before the grand total amount on the thermal receipt, e.g. 'TOTAL: 12.50'"
+  }
+}

@@ -7,6 +7,16 @@ import '../../../../core/usecase/usecase.dart';
 part 'product_event.dart';
 part 'product_state.dart';
 
+/// Stable codes emitted as [ProductState.message] on success so the
+/// presentation layer (which has a `BuildContext`) can resolve them to a
+/// localized string. The bloc has no `BuildContext`, so it cannot call
+/// `AppLocalizations` directly.
+abstract class ProductMessageCode {
+  static const added = 'product_added';
+  static const updated = 'product_updated';
+  static const deleted = 'product_deleted';
+}
+
 class ProductBloc extends Bloc<ProductEvent, ProductState> {
   final GetProductsUseCase getProductsUseCase;
   final AddProductUseCase addProductUseCase;
@@ -47,7 +57,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
       (_) {
         emit(state.copyWith(
             status: ProductStatus.success,
-            message: 'Product added successfully'));
+            message: ProductMessageCode.added));
         add(LoadProducts());
       },
     );
@@ -63,7 +73,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
       (_) {
         emit(state.copyWith(
             status: ProductStatus.success,
-            message: 'Product updated successfully'));
+            message: ProductMessageCode.updated));
         add(LoadProducts());
       },
     );
@@ -79,7 +89,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
       (_) {
         emit(state.copyWith(
             status: ProductStatus.success,
-            message: 'Product deleted successfully'));
+            message: ProductMessageCode.deleted));
         add(LoadProducts());
       },
     );

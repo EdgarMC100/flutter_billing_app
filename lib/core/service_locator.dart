@@ -10,6 +10,9 @@ import '../../features/shop/presentation/bloc/shop_bloc.dart';
 import '../../features/settings/data/repositories/printer_repository_impl.dart';
 import '../../features/settings/domain/repositories/printer_repository.dart';
 import '../../features/settings/presentation/bloc/printer_bloc.dart';
+import '../../features/settings/data/repositories/locale_repository_impl.dart';
+import '../../features/settings/domain/repositories/locale_repository.dart';
+import '../../features/settings/presentation/bloc/locale_bloc.dart';
 
 final sl = GetIt.instance;
 
@@ -34,6 +37,12 @@ Future<void> init() async {
 
   sl.registerFactory(
     () => PrinterBloc(
+      repository: sl(),
+    ),
+  );
+
+  sl.registerFactory(
+    () => LocaleBloc(
       repository: sl(),
     ),
   );
@@ -63,5 +72,10 @@ Future<void> init() async {
   // Features - Settings / Printer
   sl.registerLazySingleton<PrinterRepository>(
     () => PrinterRepositoryImpl(),
+  );
+
+  // Features - Settings / Locale
+  sl.registerLazySingleton<LocaleRepository>(
+    () => LocaleRepositoryImpl(),
   );
 }

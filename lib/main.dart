@@ -9,6 +9,10 @@ import 'features/product/presentation/bloc/product_bloc.dart';
 import 'features/shop/presentation/bloc/shop_bloc.dart';
 import 'features/settings/presentation/bloc/printer_bloc.dart';
 import 'features/settings/presentation/bloc/printer_event.dart';
+import 'features/settings/presentation/bloc/locale_bloc.dart';
+import 'features/settings/presentation/bloc/locale_event.dart';
+import 'features/settings/presentation/bloc/locale_state.dart';
+import 'l10n/generated/app_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,12 +37,21 @@ class MyApp extends StatelessWidget {
                 BillingBloc(getProductByBarcodeUseCase: di.sl())),
         BlocProvider<PrinterBloc>(
             create: (context) => di.sl<PrinterBloc>()..add(InitPrinterEvent())),
+        BlocProvider<LocaleBloc>(
+            create: (context) => di.sl<LocaleBloc>()..add(InitLocaleEvent())),
       ],
-      child: MaterialApp.router(
-        title: 'Billing App',
-        theme: AppTheme.lightTheme,
-        routerConfig: router,
-        debugShowCheckedModeBanner: false,
+      child: BlocBuilder<LocaleBloc, LocaleState>(
+        builder: (context, localeState) {
+          return MaterialApp.router(
+            title: 'Billing App',
+            theme: AppTheme.lightTheme,
+            routerConfig: router,
+            debugShowCheckedModeBanner: false,
+            locale: localeState.locale,
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
+          );
+        },
       ),
     );
   }

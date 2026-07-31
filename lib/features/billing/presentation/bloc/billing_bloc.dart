@@ -9,6 +9,17 @@ import '../../../../core/data/hive_database.dart';
 part 'billing_event.dart';
 part 'billing_state.dart';
 
+/// Stable codes emitted as [BillingState.error] so the presentation layer
+/// (which has a `BuildContext`) can resolve them to a localized string. The
+/// bloc has no `BuildContext`, so it cannot call `AppLocalizations`
+/// directly. [printFailedPrefix] is followed by the raw exception text,
+/// which stays untranslated, same as elsewhere in the app.
+abstract class BillingErrorCode {
+  static const autoConnectFailed = 'billing_auto_connect_failed';
+  static const noPrinterConfigured = 'billing_no_printer_configured';
+  static const printFailedPrefix = 'billing_print_failed:';
+}
+
 class BillingBloc extends Bloc<BillingEvent, BillingState> {
   final GetProductByBarcodeUseCase getProductByBarcodeUseCase;
 
@@ -98,13 +109,13 @@ class BillingBloc extends Bloc<BillingEvent, BillingState> {
         final connected = await printerHelper.connect(savedMac);
         if (!connected) {
           emit(state.copyWith(
-              error: 'Failed to auto-connect to printer!', clearError: false));
+              error: BillingErrorCode.autoConnectFailed, clearError: false));
           emit(state.copyWith(clearError: true));
           return;
         }
       } else {
         emit(state.copyWith(
-            error: 'Printer not connected & no saved printer found!',
+            error: BillingErrorCode.noPrinterConfigured,
             clearError: false));
         emit(state.copyWith(clearError: true));
         return;
@@ -131,12 +142,18 @@ class BillingBloc extends Bloc<BillingEvent, BillingState> {
           phone: event.phone,
           items: items,
           total: state.totalAmount,
-          footer: event.footer);
+          footer: event.footer,
+          itemColumnLabel: event.itemColumnLabel,
+          priceColumnLabel: event.priceColumnLabel,
+          totalColumnLabel: event.totalColumnLabel,
+          totalLinePrefix: event.totalLinePrefix);
 
       emit(state.copyWith(isPrinting: false, printSuccess: true));
     } catch (e) {
       emit(state.copyWith(
-          isPrinting: false, error: 'Print failed: $e', clearError: false));
+          isPrinting: false,
+          error: '${BillingErrorCode.printFailedPrefix}$e',
+          clearError: false));
       // Reset error instantly avoids sticky error
       emit(state.copyWith(clearError: true));
     }
