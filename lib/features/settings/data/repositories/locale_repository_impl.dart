@@ -3,7 +3,7 @@ import '../../domain/repositories/locale_repository.dart';
 
 class LocaleRepositoryImpl implements LocaleRepository {
   static const String _localeKey = 'locale';
-  static const String _defaultLanguageCode = 'en';
+  static const String _defaultLanguageCode = 'es';
 
   @override
   String getSavedLanguageCode() {
