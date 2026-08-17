@@ -4,6 +4,7 @@ abstract class PrinterRepository {
   Future<List<BluetoothInfo>> scanDevices();
   Future<bool> connect(String macAddress);
   Future<bool> disconnect();
+  Future<bool> checkLiveConnection();
   String? getSavedPrinterMac();
   String? getSavedPrinterName();
   Future<void> savePrinterData(String mac, String name);

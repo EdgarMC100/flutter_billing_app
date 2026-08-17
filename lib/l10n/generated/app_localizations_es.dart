@@ -47,6 +47,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get settingsConnectedBadge => 'CONECTADO';
 
   @override
+  String get settingsDisconnectedBadge => 'DESCONECTADO';
+
+  @override
   String get settingsPrinterHelpText =>
       'Para conectar un nuevo dispositivo, toca el ícono de ajustes para emparejar en la configuración de Bluetooth del teléfono, luego regresa y presiona Actualizar.';
 

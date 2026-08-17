@@ -11,6 +11,12 @@ class InitPrinterEvent extends PrinterEvent {}
 
 class RefreshPrinterEvent extends PrinterEvent {}
 
+/// Lightweight periodic check of the saved printer's live connection state,
+/// as opposed to [RefreshPrinterEvent] which rescans and attempts to
+/// reconnect. Used to notice the printer going unreachable (e.g. powered
+/// off) while the Settings page is sitting open.
+class CheckConnectionEvent extends PrinterEvent {}
+
 class ScanPrintersEvent extends PrinterEvent {}
 
 class ConnectPrinterEvent extends PrinterEvent {

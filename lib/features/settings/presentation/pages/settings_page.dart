@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -21,11 +23,25 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
+  Timer? _connectionPollTimer;
+
   @override
   void initState() {
     super.initState();
     // Re-initialize printer state whenever settings page opens
     context.read<PrinterBloc>().add(InitPrinterEvent());
+    // Poll the saved printer's live status while this page is open, so
+    // powering it off is noticed without needing to leave and come back.
+    _connectionPollTimer =
+        Timer.periodic(const Duration(seconds: 5), (_) {
+      context.read<PrinterBloc>().add(CheckConnectionEvent());
+    });
+  }
+
+  @override
+  void dispose() {
+    _connectionPollTimer?.cancel();
+    super.dispose();
   }
 
   @override
@@ -155,7 +171,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             style: TextStyle(
                                 fontSize: 12, color: Colors.grey[500]),
                           ),
-                          if (state.connectedMac != null) ...[
+                          if (state.status == PrinterStatus.connected) ...[
                             const SizedBox(width: 8),
                             Container(
                               padding: const EdgeInsets.symmetric(
@@ -170,6 +186,23 @@ class _SettingsPageState extends State<SettingsPage> {
                                     fontSize: 9,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.teal[700]),
+                              ),
+                            ),
+                          ] else if (state.connectedMac != null) ...[
+                            const SizedBox(width: 8),
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 6, vertical: 2),
+                              decoration: BoxDecoration(
+                                  color: Colors.red[50],
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(color: Colors.red[200]!)),
+                              child: Text(
+                                l10n.settingsDisconnectedBadge,
+                                style: TextStyle(
+                                    fontSize: 9,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.red[700]),
                               ),
                             ),
                           ]

@@ -25,6 +25,11 @@ class PrinterRepositoryImpl implements PrinterRepository {
   }
 
   @override
+  Future<bool> checkLiveConnection() async {
+    return await _printerHelper.checkLiveConnection();
+  }
+
+  @override
   String? getSavedPrinterMac() {
     return HiveDatabase.settingsBox.get('printer_mac');
   }

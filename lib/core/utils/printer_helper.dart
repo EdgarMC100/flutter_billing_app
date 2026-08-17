@@ -60,6 +60,21 @@ class PrinterHelper {
     }
   }
 
+  /// Queries the plugin for the live Bluetooth connection state, as opposed
+  /// to [isConnected] which only reflects the last connect/disconnect call
+  /// result and doesn't notice the printer going unreachable (e.g. powered
+  /// off) in between.
+  Future<bool> checkLiveConnection() async {
+    try {
+      final bool result = await PrintBluetoothThermal.connectionStatus;
+      _isConnected = result;
+      return result;
+    } catch (e) {
+      _isConnected = false;
+      return false;
+    }
+  }
+
   Future<bool> disconnect() async {
     try {
       final bool result = await PrintBluetoothThermal.disconnect;

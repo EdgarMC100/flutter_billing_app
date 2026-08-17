@@ -170,6 +170,12 @@ abstract class AppLocalizations {
   /// **'CONNECTED'**
   String get settingsConnectedBadge;
 
+  /// Small badge shown next to the printer name when a saved printer is not currently reachable (e.g. powered off)
+  ///
+  /// In en, this message translates to:
+  /// **'DISCONNECTED'**
+  String get settingsDisconnectedBadge;
+
   /// Helper text under the printer row explaining how to pair a new device
   ///
   /// In en, this message translates to:
