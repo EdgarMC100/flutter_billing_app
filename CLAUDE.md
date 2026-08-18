@@ -13,12 +13,15 @@ flutter pub get                                          # install dependencies
 dart run build_runner build --delete-conflicting-outputs # regenerate Hive adapters (*.g.dart) and JSON serializers after editing any @HiveType/@JsonSerializable model
 dart run build_runner watch --delete-conflicting-outputs # same, but watches for changes
 flutter run                                               # run on connected device/emulator
+adb install -r build/app/outputs/flutter-apk/app-release.apk  # deploy without wiping local Hive data (see note below)
 flutter analyze                                           # static analysis (flutter_lints)
 flutter test                                              # run tests
 flutter test test/widget_test.dart                        # run a single test file
 ```
 
 Note: `test/widget_test.dart` is the unmodified Flutter project template (asserts a counter UI) and does not reflect this app's actual widget tree — it will fail if run as-is. There is no other test coverage yet.
+
+**Never run `flutter install` to deploy a change to a device** — it uninstalls the app first, which wipes all local Hive data (products, shop, printer/locale settings) since this app has no backend to restore from. A `PreToolUse` hook in `.claude/settings.local.json` blocks it automatically. Use `adb install -r <apk-path>` instead (replaces the APK in place, preserves app data), or `flutter run` for iterative dev.
 
 Code generation is required any time a Hive model (`*_model.dart`) or JSON-annotated class changes, since `product_model.g.dart` / `shop_model.g.dart` are committed generated output.
 
@@ -52,7 +55,7 @@ Routing is centralized in `lib/config/routes/app_routes.dart` using `go_router` 
 - `billing/` — cart, checkout, barcode scanning (`mobile_scanner`), invoice/receipt flow. No `data/` layer of its own; it reuses `product`'s repository/use case for barcode lookups.
 - `product/` — inventory CRUD, backed by the `products` Hive box.
 - `shop/` — shop profile (name/address/etc.) rendered on printed receipts, backed by the `shop` Hive box.
-- `settings/` — printer configuration/connection state (`print_bluetooth_thermal`), backed by a repository with no persistent Hive box (in-memory/device state).
+- `settings/` — printer pairing (MAC/name, `print_bluetooth_thermal`) and locale, persisted as simple key-value pairs in the generic (untyped, no `@HiveType` model) `settings` Hive box; live Bluetooth connection state itself is never persisted and is re-verified against the device on each app start/check rather than trusted from storage.
 
 ## Platform notes
 
