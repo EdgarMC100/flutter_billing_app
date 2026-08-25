@@ -43,3 +43,6 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Debug/reference photos (e.g. printed receipt test shots), not app assets
+/debug_receipts/
