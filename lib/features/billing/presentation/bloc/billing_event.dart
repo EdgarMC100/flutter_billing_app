@@ -49,6 +49,7 @@ class PrintReceiptEvent extends BillingEvent {
   final String priceColumnLabel;
   final String totalColumnLabel;
   final String totalLinePrefix;
+  final String itemsCountLabel;
 
   const PrintReceiptEvent({
     required this.shopName,
@@ -60,6 +61,7 @@ class PrintReceiptEvent extends BillingEvent {
     required this.priceColumnLabel,
     required this.totalColumnLabel,
     required this.totalLinePrefix,
+    required this.itemsCountLabel,
   });
 
   @override
@@ -73,5 +75,6 @@ class PrintReceiptEvent extends BillingEvent {
         priceColumnLabel,
         totalColumnLabel,
         totalLinePrefix,
+        itemsCountLabel,
       ];
 }

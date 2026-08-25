@@ -4,6 +4,11 @@ import 'package:permission_handler/permission_handler.dart';
 
 class EscPos {
   static const List<int> init = [0x1B, 0x40];
+  // ESC t 16: select character code table 16 (WPC1252/Windows-1252), the
+  // one candidate that renders Spanish accents correctly on this printer
+  // hardware (confirmed via a physical code-page probe print) instead of
+  // garbling them under the printer's PC437-like default table.
+  static const List<int> selectCodePageLatin1 = [0x1B, 0x74, 16];
   static const List<int> alignCenter = [0x1B, 0x61, 0x01];
   static const List<int> alignLeft = [0x1B, 0x61, 0x00];
   static const List<int> alignRight = [0x1B, 0x61, 0x02];
@@ -130,6 +135,8 @@ class PrinterHelper {
     required String priceColumnLabel,
     required String totalColumnLabel,
     required String totalLinePrefix,
+    required int itemsCount,
+    required String itemsCountLabel,
   }) async {
     if (!_isConnected) return;
 
@@ -138,6 +145,7 @@ class PrinterHelper {
 
     // Init
     bytes += EscPos.init;
+    bytes += EscPos.selectCodePageLatin1;
 
     // Shop Name (Center, Bold, Large)
     bytes += EscPos.alignCenter;
@@ -183,24 +191,40 @@ class PrinterHelper {
     for (var item in items) {
       String name = item['name'].toString();
       String qty = item['qty'].toString();
-      String price = item['price'].toString();
-      String totalItem = item['total'].toString();
+      String price = '\$${item['price']}';
+      String totalItem = '\$${item['total']}';
 
       String prefix = '${qty}x $name';
-      if (prefix.length > 16) prefix = prefix.substring(0, 16);
 
-      String line = prefix.padRight(16) + price.padRight(8) + totalItem;
-      bytes += _textToBytes(line);
-      bytes += EscPos.lineFeed;
+      if (prefix.length <= 16) {
+        String line = prefix.padRight(16) + price.padRight(8) + totalItem;
+        bytes += _textToBytes(line);
+        bytes += EscPos.lineFeed;
+      } else {
+        // Description doesn't fit the item column: give it up to 2 lines
+        // at full receipt width instead of truncating it into the price,
+        // then align price/total on the line below.
+        for (final descLine in _wrapDescription(prefix, 32, 2)) {
+          bytes += _textToBytes(descLine);
+          bytes += EscPos.lineFeed;
+        }
+        String line = ''.padRight(16) + price.padRight(8) + totalItem;
+        bytes += _textToBytes(line);
+        bytes += EscPos.lineFeed;
+      }
     }
 
     bytes += _textToBytes('--------------------------------');
     bytes += EscPos.lineFeed;
 
-    // Total (Align Right)
+    // Items count (Align Right)
     bytes += EscPos.alignRight;
+    bytes += _textToBytes('$itemsCountLabel: $itemsCount');
+    bytes += EscPos.lineFeed;
+
+    // Total (Align Right)
     bytes += EscPos.boldOn;
-    bytes += _textToBytes('$totalLinePrefix: $total');
+    bytes += _textToBytes('$totalLinePrefix: \$$total');
     bytes += EscPos.lineFeed;
     bytes += EscPos.boldOff;
     bytes += EscPos.lineFeed;
@@ -216,8 +240,42 @@ class PrinterHelper {
     await PrintBluetoothThermal.writeBytes(bytes);
   }
 
+  /// Encodes as Windows-1252/Latin-1 byte values, matching the printer's
+  /// active code table (see [EscPos.selectCodePageLatin1]) so accented
+  /// Spanish characters print correctly instead of being stripped/garbled.
+  /// Dart's codeUnits already equal those byte values for U+0000-U+00FF;
+  /// anything outside that range (e.g. emoji) falls back to '?'.
   List<int> _textToBytes(String text) {
-    // Should verify encoding, but Latin-1 usually works for basic printers
-    return List.from(text.codeUnits);
+    return text.codeUnits.map((c) => c > 255 ? 0x3F : c).toList();
+  }
+
+  /// Word-wraps [text] into at most [maxLines] lines of [width] characters,
+  /// breaking at word boundaries where possible. If [text] still doesn't
+  /// fit after [maxLines], the last line is truncated with an ellipsis.
+  List<String> _wrapDescription(String text, int width, int maxLines) {
+    final lines = <String>[];
+    String remaining = text.trim();
+
+    while (remaining.isNotEmpty && lines.length < maxLines) {
+      if (remaining.length <= width) {
+        lines.add(remaining);
+        remaining = '';
+        break;
+      }
+      int breakAt = remaining.lastIndexOf(' ', width);
+      if (breakAt <= 0) breakAt = width;
+      lines.add(remaining.substring(0, breakAt).trim());
+      remaining = remaining.substring(breakAt).trim();
+    }
+
+    if (remaining.isNotEmpty && lines.isNotEmpty) {
+      // ASCII "..." rather than a Unicode ellipsis: _textToBytes sends raw
+      // codeUnits as single printer bytes, and U+2026 doesn't fit in one.
+      String last = lines.last;
+      if (last.length > width - 3) last = last.substring(0, width - 3);
+      lines[lines.length - 1] = '$last...';
+    }
+
+    return lines;
   }
 }

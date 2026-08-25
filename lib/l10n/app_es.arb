@@ -91,5 +91,7 @@
   "receiptColumnItem": "Artículo",
   "receiptColumnPrice": "Precio",
   "receiptColumnTotal": "Total",
-  "receiptTotalPrefix": "TOTAL"
+  "receiptTotalPrefix": "TOTAL",
+  "receiptItemsCountLabel": "Total de artículos",
+  "settingsAppVersionLabel": "Versión {version}"
 }

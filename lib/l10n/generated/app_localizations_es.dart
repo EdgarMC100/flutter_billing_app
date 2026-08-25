@@ -312,4 +312,12 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get receiptTotalPrefix => 'TOTAL';
+
+  @override
+  String get receiptItemsCountLabel => 'Total de artículos';
+
+  @override
+  String settingsAppVersionLabel(String version) {
+    return 'Versión $version';
+  }
 }

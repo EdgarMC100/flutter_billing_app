@@ -398,5 +398,18 @@
   "receiptTotalPrefix": "TOTAL",
   "@receiptTotalPrefix": {
     "description": "Label printed before the grand total amount on the thermal receipt, e.g. 'TOTAL: 12.50'"
+  },
+  "receiptItemsCountLabel": "Items total",
+  "@receiptItemsCountLabel": {
+    "description": "Label printed before the total count of articles/items on the thermal receipt, e.g. 'Items total: 9'"
+  },
+  "settingsAppVersionLabel": "Version {version}",
+  "@settingsAppVersionLabel": {
+    "description": "App version shown at the bottom of the settings page, e.g. 'Version 1.0.0 (1)'",
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
   }
 }

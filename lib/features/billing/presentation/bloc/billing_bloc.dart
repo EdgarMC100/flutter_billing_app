@@ -146,7 +146,9 @@ class BillingBloc extends Bloc<BillingEvent, BillingState> {
           itemColumnLabel: event.itemColumnLabel,
           priceColumnLabel: event.priceColumnLabel,
           totalColumnLabel: event.totalColumnLabel,
-          totalLinePrefix: event.totalLinePrefix);
+          totalLinePrefix: event.totalLinePrefix,
+          itemsCount: state.itemsCount,
+          itemsCountLabel: event.itemsCountLabel);
 
       emit(state.copyWith(isPrinting: false, printSuccess: true));
     } catch (e) {

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:app_settings/app_settings.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 import '../../../../core/theme/app_theme.dart';
 import '../../../../l10n/generated/app_localizations.dart';
@@ -24,10 +25,12 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   Timer? _connectionPollTimer;
+  late final Future<PackageInfo> _packageInfoFuture;
 
   @override
   void initState() {
     super.initState();
+    _packageInfoFuture = PackageInfo.fromPlatform();
     // Re-initialize printer state whenever settings page opens
     context.read<PrinterBloc>().add(InitPrinterEvent());
     // Poll the saved printer's live status while this page is open, so
@@ -270,6 +273,22 @@ class _SettingsPageState extends State<SettingsPage> {
                       onTap: () => _showLanguageDialog(context),
                     ),
                   ],
+                );
+              },
+            ),
+
+            const SizedBox(height: 24),
+            FutureBuilder<PackageInfo>(
+              future: _packageInfoFuture,
+              builder: (context, snapshot) {
+                final info = snapshot.data;
+                if (info == null) return const SizedBox.shrink();
+                return Center(
+                  child: Text(
+                    l10n.settingsAppVersionLabel(
+                        '${info.version} (${info.buildNumber})'),
+                    style: TextStyle(fontSize: 12, color: Colors.grey[400]),
+                  ),
                 );
               },
             ),

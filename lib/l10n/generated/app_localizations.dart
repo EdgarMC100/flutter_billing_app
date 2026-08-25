@@ -649,6 +649,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'TOTAL'**
   String get receiptTotalPrefix;
+
+  /// Label printed before the total count of articles/items on the thermal receipt, e.g. 'Items total: 9'
+  ///
+  /// In en, this message translates to:
+  /// **'Items total'**
+  String get receiptItemsCountLabel;
+
+  /// App version shown at the bottom of the settings page, e.g. 'Version 1.0.0 (1)'
+  ///
+  /// In en, this message translates to:
+  /// **'Version {version}'**
+  String settingsAppVersionLabel(String version);
 }
 
 class _AppLocalizationsDelegate

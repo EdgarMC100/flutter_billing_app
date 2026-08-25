@@ -17,6 +17,9 @@ class BillingState extends Equatable {
 
   double get totalAmount => cartItems.fold(0, (sum, item) => sum + item.total);
 
+  int get itemsCount =>
+      cartItems.fold(0, (sum, item) => sum + item.quantity);
+
   BillingState copyWith({
     List<CartItem>? cartItems,
     String? error,
