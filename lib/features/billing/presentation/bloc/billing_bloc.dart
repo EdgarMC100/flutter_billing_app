@@ -1,8 +1,12 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:uuid/uuid.dart';
 import '../../domain/entities/cart_item.dart';
 import 'package:billing_app/features/product/domain/entities/product.dart';
 import 'package:billing_app/features/product/domain/usecases/product_usecases.dart';
+import 'package:billing_app/features/sales/domain/entities/sale.dart';
+import 'package:billing_app/features/sales/domain/entities/sale_item.dart';
+import 'package:billing_app/features/sales/domain/usecases/sale_usecases.dart';
 import '../../../../core/utils/printer_helper.dart';
 import '../../../../core/data/hive_database.dart';
 
@@ -22,9 +26,12 @@ abstract class BillingErrorCode {
 
 class BillingBloc extends Bloc<BillingEvent, BillingState> {
   final GetProductByBarcodeUseCase getProductByBarcodeUseCase;
+  final SaveSaleUseCase saveSaleUseCase;
 
-  BillingBloc({required this.getProductByBarcodeUseCase})
-      : super(const BillingState()) {
+  BillingBloc({
+    required this.getProductByBarcodeUseCase,
+    required this.saveSaleUseCase,
+  }) : super(const BillingState()) {
     on<ScanBarcodeEvent>(_onScanBarcode);
     on<AddProductToCartEvent>(_onAddProductToCart);
     on<RemoveProductFromCartEvent>(_onRemoveProductFromCart);
@@ -150,7 +157,27 @@ class BillingBloc extends Bloc<BillingEvent, BillingState> {
           itemsCount: state.itemsCount,
           itemsCountLabel: event.itemsCountLabel);
 
-      emit(state.copyWith(isPrinting: false, printSuccess: true));
+      // Printing succeeded: record the sale (snapshot of items) before
+      // clearing the cart. A save failure here is non-critical — the receipt
+      // already printed — so it is ignored, same as other secondary failures
+      // in this bloc.
+      final sale = Sale(
+        id: const Uuid().v4(),
+        dateTime: DateTime.now(),
+        total: state.totalAmount,
+        items: state.cartItems
+            .map((item) => SaleItem(
+                  productName: item.product.name,
+                  barcode: item.product.barcode,
+                  unitPrice: item.product.price,
+                  quantity: item.quantity,
+                ))
+            .toList(),
+      );
+      await saveSaleUseCase(sale);
+
+      emit(state.copyWith(
+          isPrinting: false, printSuccess: true, cartItems: []));
     } catch (e) {
       emit(state.copyWith(
           isPrinting: false,

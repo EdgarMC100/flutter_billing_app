@@ -661,6 +661,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Version {version}'**
   String settingsAppVersionLabel(String version);
+
+  /// Settings list item title opening the sales history page
+  ///
+  /// In en, this message translates to:
+  /// **'Sales History'**
+  String get settingsSalesHistoryTitle;
+
+  /// Settings list item subtitle for the sales history entry
+  ///
+  /// In en, this message translates to:
+  /// **'Review past completed sales'**
+  String get settingsSalesHistorySubtitle;
+
+  /// App bar title on the sales history list page
+  ///
+  /// In en, this message translates to:
+  /// **'Sales History'**
+  String get salesHistoryAppBarTitle;
+
+  /// Empty state heading shown when no sales have been recorded
+  ///
+  /// In en, this message translates to:
+  /// **'No sales yet'**
+  String get salesHistoryEmptyTitle;
+
+  /// Item quantity summary shown on each sale card in the history list
+  ///
+  /// In en, this message translates to:
+  /// **'{count} items'**
+  String salesHistoryItemsCount(int count);
+
+  /// App bar title on the individual sale detail page
+  ///
+  /// In en, this message translates to:
+  /// **'Sale Detail'**
+  String get saleDetailAppBarTitle;
 }
 
 class _AppLocalizationsDelegate

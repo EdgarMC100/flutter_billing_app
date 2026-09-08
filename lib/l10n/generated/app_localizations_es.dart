@@ -320,4 +320,24 @@ class AppLocalizationsEs extends AppLocalizations {
   String settingsAppVersionLabel(String version) {
     return 'Versión $version';
   }
+
+  @override
+  String get settingsSalesHistoryTitle => 'Historial de ventas';
+
+  @override
+  String get settingsSalesHistorySubtitle => 'Consulta las ventas realizadas';
+
+  @override
+  String get salesHistoryAppBarTitle => 'Historial de ventas';
+
+  @override
+  String get salesHistoryEmptyTitle => 'Aún no hay ventas';
+
+  @override
+  String salesHistoryItemsCount(int count) {
+    return '$count artículos';
+  }
+
+  @override
+  String get saleDetailAppBarTitle => 'Detalle de venta';
 }

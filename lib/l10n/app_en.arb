@@ -411,5 +411,34 @@
         "type": "String"
       }
     }
+  },
+  "settingsSalesHistoryTitle": "Sales History",
+  "@settingsSalesHistoryTitle": {
+    "description": "Settings list item title opening the sales history page"
+  },
+  "settingsSalesHistorySubtitle": "Review past completed sales",
+  "@settingsSalesHistorySubtitle": {
+    "description": "Settings list item subtitle for the sales history entry"
+  },
+  "salesHistoryAppBarTitle": "Sales History",
+  "@salesHistoryAppBarTitle": {
+    "description": "App bar title on the sales history list page"
+  },
+  "salesHistoryEmptyTitle": "No sales yet",
+  "@salesHistoryEmptyTitle": {
+    "description": "Empty state heading shown when no sales have been recorded"
+  },
+  "salesHistoryItemsCount": "{count} items",
+  "@salesHistoryItemsCount": {
+    "description": "Item quantity summary shown on each sale card in the history list",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "saleDetailAppBarTitle": "Sale Detail",
+  "@saleDetailAppBarTitle": {
+    "description": "App bar title on the individual sale detail page"
   }
 }

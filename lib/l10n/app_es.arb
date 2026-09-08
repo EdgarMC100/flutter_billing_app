@@ -93,5 +93,11 @@
   "receiptColumnTotal": "Total",
   "receiptTotalPrefix": "TOTAL",
   "receiptItemsCountLabel": "Total de artículos",
-  "settingsAppVersionLabel": "Versión {version}"
+  "settingsAppVersionLabel": "Versión {version}",
+  "settingsSalesHistoryTitle": "Historial de ventas",
+  "settingsSalesHistorySubtitle": "Consulta las ventas realizadas",
+  "salesHistoryAppBarTitle": "Historial de ventas",
+  "salesHistoryEmptyTitle": "Aún no hay ventas",
+  "salesHistoryItemsCount": "{count} artículos",
+  "saleDetailAppBarTitle": "Detalle de venta"
 }
