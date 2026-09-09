@@ -456,5 +456,41 @@
   "saleDetailAppBarTitle": "Sale Detail",
   "@saleDetailAppBarTitle": {
     "description": "App bar title on the individual sale detail page"
+  },
+  "onboardingWelcomeTitle": "Welcome",
+  "@onboardingWelcomeTitle": {
+    "description": "Heading on the first onboarding screen"
+  },
+  "onboardingWelcomeBody": "Point of sale and billing that works entirely offline. Let's set up your shop.",
+  "@onboardingWelcomeBody": {
+    "description": "Body text on the first onboarding screen"
+  },
+  "onboardingWelcomeCta": "Get started",
+  "@onboardingWelcomeCta": {
+    "description": "Button that starts the onboarding flow"
+  },
+  "onboardingProfileTitle": "Your shop",
+  "@onboardingProfileTitle": {
+    "description": "Heading on the onboarding profile-setup screen"
+  },
+  "onboardingProfileSubtitle": "These details appear on the receipts you print.",
+  "@onboardingProfileSubtitle": {
+    "description": "Subtitle on the onboarding profile-setup screen"
+  },
+  "onboardingProfileCta": "Continue",
+  "@onboardingProfileCta": {
+    "description": "Button that saves the shop profile and advances onboarding"
+  },
+  "onboardingDoneTitle": "You're all set!",
+  "@onboardingDoneTitle": {
+    "description": "Heading on the final onboarding screen"
+  },
+  "onboardingDoneBody": "You can pair a printer and change the language anytime from Settings.",
+  "@onboardingDoneBody": {
+    "description": "Body text on the final onboarding screen"
+  },
+  "onboardingDoneCta": "Go to home",
+  "@onboardingDoneCta": {
+    "description": "Button that finishes onboarding and opens the home page"
   }
 }

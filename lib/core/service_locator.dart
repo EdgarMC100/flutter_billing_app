@@ -17,6 +17,8 @@ import '../../features/sales/data/repositories/sale_repository_impl.dart';
 import '../../features/sales/domain/repositories/sale_repository.dart';
 import '../../features/sales/domain/usecases/sale_usecases.dart';
 import '../../features/sales/presentation/bloc/sale_bloc.dart';
+import '../../features/onboarding/data/repositories/onboarding_repository_impl.dart';
+import '../../features/onboarding/domain/repositories/onboarding_repository.dart';
 
 final sl = GetIt.instance;
 
@@ -93,5 +95,10 @@ Future<void> init() async {
 
   sl.registerLazySingleton<SaleRepository>(
     () => SaleRepositoryImpl(),
+  );
+
+  // Features - Onboarding
+  sl.registerLazySingleton<OnboardingRepository>(
+    () => OnboardingRepositoryImpl(),
   );
 }

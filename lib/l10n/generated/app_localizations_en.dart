@@ -342,4 +342,34 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get saleDetailAppBarTitle => 'Sale Detail';
+
+  @override
+  String get onboardingWelcomeTitle => 'Welcome';
+
+  @override
+  String get onboardingWelcomeBody =>
+      'Point of sale and billing that works entirely offline. Let\'s set up your shop.';
+
+  @override
+  String get onboardingWelcomeCta => 'Get started';
+
+  @override
+  String get onboardingProfileTitle => 'Your shop';
+
+  @override
+  String get onboardingProfileSubtitle =>
+      'These details appear on the receipts you print.';
+
+  @override
+  String get onboardingProfileCta => 'Continue';
+
+  @override
+  String get onboardingDoneTitle => 'You\'re all set!';
+
+  @override
+  String get onboardingDoneBody =>
+      'You can pair a printer and change the language anytime from Settings.';
+
+  @override
+  String get onboardingDoneCta => 'Go to home';
 }

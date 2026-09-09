@@ -721,6 +721,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Sale Detail'**
   String get saleDetailAppBarTitle;
+
+  /// Heading on the first onboarding screen
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome'**
+  String get onboardingWelcomeTitle;
+
+  /// Body text on the first onboarding screen
+  ///
+  /// In en, this message translates to:
+  /// **'Point of sale and billing that works entirely offline. Let\'s set up your shop.'**
+  String get onboardingWelcomeBody;
+
+  /// Button that starts the onboarding flow
+  ///
+  /// In en, this message translates to:
+  /// **'Get started'**
+  String get onboardingWelcomeCta;
+
+  /// Heading on the onboarding profile-setup screen
+  ///
+  /// In en, this message translates to:
+  /// **'Your shop'**
+  String get onboardingProfileTitle;
+
+  /// Subtitle on the onboarding profile-setup screen
+  ///
+  /// In en, this message translates to:
+  /// **'These details appear on the receipts you print.'**
+  String get onboardingProfileSubtitle;
+
+  /// Button that saves the shop profile and advances onboarding
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get onboardingProfileCta;
+
+  /// Heading on the final onboarding screen
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re all set!'**
+  String get onboardingDoneTitle;
+
+  /// Body text on the final onboarding screen
+  ///
+  /// In en, this message translates to:
+  /// **'You can pair a printer and change the language anytime from Settings.'**
+  String get onboardingDoneBody;
+
+  /// Button that finishes onboarding and opens the home page
+  ///
+  /// In en, this message translates to:
+  /// **'Go to home'**
+  String get onboardingDoneCta;
 }
 
 class _AppLocalizationsDelegate

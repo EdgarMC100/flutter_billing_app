@@ -16,14 +16,10 @@ class ShopRepositoryImpl implements ShopRepository {
       if (shop != null) {
         return Right(shop);
       } else {
-        // Return default shop if not found
-        return const Right(Shop(
-            name: 'Papeleria El Sol',
-            addressLine1: '5a sur entre 5a y 4a poniente',
-            addressLine2: '',
-            phoneNumber: '+9612118404',
-            upiId: 'dineshsowndar@oksbi',
-            footerText: 'Gracias por tu visita!!!'));
+        // No shop configured yet (fresh install / cleared). Return an empty
+        // profile — onboarding is responsible for collecting the real one.
+        // Never ship real default values: this build goes to the Play Store.
+        return const Right(Shop());
       }
     } catch (e) {
       return Left(CacheFailure(e.toString()));

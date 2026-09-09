@@ -1,4 +1,7 @@
 import 'package:go_router/go_router.dart';
+import '../../core/service_locator.dart';
+import '../../features/onboarding/domain/repositories/onboarding_repository.dart';
+import '../../features/onboarding/presentation/pages/onboarding_page.dart';
 import '../../features/billing/presentation/pages/home_page.dart';
 import '../../features/product/presentation/pages/product_list_page.dart';
 import '../../features/product/presentation/pages/add_product_page.dart';
@@ -14,7 +17,18 @@ import '../../features/sales/domain/entities/sale.dart';
 
 final router = GoRouter(
   initialLocation: '/',
+  redirect: (context, state) {
+    final onboardingDone = sl<OnboardingRepository>().isComplete();
+    final atOnboarding = state.matchedLocation == '/onboarding';
+    if (!onboardingDone && !atOnboarding) return '/onboarding';
+    if (onboardingDone && atOnboarding) return '/';
+    return null;
+  },
   routes: [
+    GoRoute(
+      path: '/onboarding',
+      builder: (context, state) => const OnboardingPage(),
+    ),
     GoRoute(
       path: '/',
       builder: (context, state) => const HomePage(),

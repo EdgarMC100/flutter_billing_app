@@ -353,4 +353,34 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get saleDetailAppBarTitle => 'Detalle de venta';
+
+  @override
+  String get onboardingWelcomeTitle => 'Te damos la bienvenida';
+
+  @override
+  String get onboardingWelcomeBody =>
+      'Punto de venta y facturación que funciona totalmente sin conexión. Configuremos tu negocio.';
+
+  @override
+  String get onboardingWelcomeCta => 'Comenzar';
+
+  @override
+  String get onboardingProfileTitle => 'Tu negocio';
+
+  @override
+  String get onboardingProfileSubtitle =>
+      'Estos datos aparecen en los recibos que imprimes.';
+
+  @override
+  String get onboardingProfileCta => 'Continuar';
+
+  @override
+  String get onboardingDoneTitle => '¡Todo listo!';
+
+  @override
+  String get onboardingDoneBody =>
+      'Puedes vincular una impresora y cambiar el idioma cuando quieras desde Ajustes.';
+
+  @override
+  String get onboardingDoneCta => 'Ir al inicio';
 }

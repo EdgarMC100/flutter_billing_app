@@ -103,5 +103,14 @@
   "salesHistoryEmptyTitle": "Aún no hay ventas",
   "commonToday": "Hoy",
   "salesHistoryItemsCount": "{count} artículos",
-  "saleDetailAppBarTitle": "Detalle de venta"
+  "saleDetailAppBarTitle": "Detalle de venta",
+  "onboardingWelcomeTitle": "Te damos la bienvenida",
+  "onboardingWelcomeBody": "Punto de venta y facturación que funciona totalmente sin conexión. Configuremos tu negocio.",
+  "onboardingWelcomeCta": "Comenzar",
+  "onboardingProfileTitle": "Tu negocio",
+  "onboardingProfileSubtitle": "Estos datos aparecen en los recibos que imprimes.",
+  "onboardingProfileCta": "Continuar",
+  "onboardingDoneTitle": "¡Todo listo!",
+  "onboardingDoneBody": "Puedes vincular una impresora y cambiar el idioma cuando quieras desde Ajustes.",
+  "onboardingDoneCta": "Ir al inicio"
 }
