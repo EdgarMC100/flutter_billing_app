@@ -6,6 +6,8 @@ class BillingState extends Equatable {
   final String? notFoundBarcode;
   final bool isPrinting;
   final bool printSuccess;
+  final bool isSavingSale;
+  final bool saleCompleted;
 
   const BillingState({
     this.cartItems = const [],
@@ -13,6 +15,8 @@ class BillingState extends Equatable {
     this.notFoundBarcode,
     this.isPrinting = false,
     this.printSuccess = false,
+    this.isSavingSale = false,
+    this.saleCompleted = false,
   });
 
   double get totalAmount => cartItems.fold(0, (sum, item) => sum + item.total);
@@ -28,6 +32,8 @@ class BillingState extends Equatable {
     bool clearNotFoundBarcode = false,
     bool? isPrinting,
     bool? printSuccess,
+    bool? isSavingSale,
+    bool? saleCompleted,
   }) {
     return BillingState(
       cartItems: cartItems ?? this.cartItems,
@@ -37,10 +43,19 @@ class BillingState extends Equatable {
           : (notFoundBarcode ?? this.notFoundBarcode),
       isPrinting: isPrinting ?? this.isPrinting,
       printSuccess: printSuccess ?? this.printSuccess,
+      isSavingSale: isSavingSale ?? this.isSavingSale,
+      saleCompleted: saleCompleted ?? this.saleCompleted,
     );
   }
 
   @override
-  List<Object?> get props =>
-      [cartItems, error, notFoundBarcode, isPrinting, printSuccess];
+  List<Object?> get props => [
+        cartItems,
+        error,
+        notFoundBarcode,
+        isPrinting,
+        printSuccess,
+        isSavingSale,
+        saleCompleted,
+      ];
 }

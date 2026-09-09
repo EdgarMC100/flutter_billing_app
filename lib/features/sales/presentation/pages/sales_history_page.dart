@@ -1,20 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:intl/intl.dart';
 
 import '../../../../core/theme/app_theme.dart';
+import '../../../../core/utils/date_display.dart';
 import '../../../../l10n/generated/app_localizations.dart';
 import '../bloc/sale_bloc.dart';
 
-class SalesHistoryPage extends StatelessWidget {
+class SalesHistoryPage extends StatefulWidget {
   const SalesHistoryPage({super.key});
+
+  @override
+  State<SalesHistoryPage> createState() => _SalesHistoryPageState();
+}
+
+class _SalesHistoryPageState extends State<SalesHistoryPage> {
+  @override
+  void initState() {
+    super.initState();
+    // The app-wide SaleBloc only loads once at startup; reload every time this
+    // page opens so sales recorded since then (e.g. right after printing a
+    // receipt) show up.
+    context.read<SaleBloc>().add(LoadSales());
+  }
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final borderColor = Colors.grey[100]!;
-    final dateFormat = DateFormat('dd-MM-yyyy hh:mm a');
 
     return Scaffold(
       appBar: AppBar(
@@ -75,9 +88,16 @@ class SalesHistoryPage extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                dateFormat.format(sale.dateTime),
+                                DateDisplay.dateLabel(
+                                    sale.dateTime, l10n.commonToday),
                                 style: const TextStyle(
                                     fontWeight: FontWeight.w600, fontSize: 15),
+                              ),
+                              const SizedBox(height: 2),
+                              Text(
+                                DateDisplay.timeLabel(sale.dateTime),
+                                style: TextStyle(
+                                    fontSize: 12, color: Colors.grey[600]),
                               ),
                               const SizedBox(height: 4),
                               Text(

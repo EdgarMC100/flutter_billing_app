@@ -130,6 +130,7 @@ class PrinterHelper {
     required String phone,
     required List<Map<String, dynamic>> items, // Name, Qty, Price, Total
     required double total,
+    DateTime? dateTime,
     required String footer,
     required String itemColumnLabel,
     required String priceColumnLabel,
@@ -168,9 +169,9 @@ class PrinterHelper {
     bytes += _textToBytes(phone);
     bytes += EscPos.lineFeed;
 
-    // Date and Time
+    // Date and Time (of the sale, not of printing — matters when reprinting)
     String formattedDate =
-        DateFormat('dd-MM-yyyy hh:mm a').format(DateTime.now());
+        DateFormat('dd-MM-yyyy hh:mm a').format(dateTime ?? DateTime.now());
     bytes += _textToBytes(formattedDate);
     bytes += EscPos.lineFeed;
 

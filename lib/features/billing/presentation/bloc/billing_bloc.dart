@@ -22,6 +22,7 @@ abstract class BillingErrorCode {
   static const autoConnectFailed = 'billing_auto_connect_failed';
   static const noPrinterConfigured = 'billing_no_printer_configured';
   static const printFailedPrefix = 'billing_print_failed:';
+  static const saleSaveFailed = 'billing_sale_save_failed';
 }
 
 class BillingBloc extends Bloc<BillingEvent, BillingState> {
@@ -37,6 +38,7 @@ class BillingBloc extends Bloc<BillingEvent, BillingState> {
     on<RemoveProductFromCartEvent>(_onRemoveProductFromCart);
     on<UpdateQuantityEvent>(_onUpdateQuantity);
     on<ClearCartEvent>(_onClearCart);
+    on<CompleteSaleEvent>(_onCompleteSale);
     on<PrintReceiptEvent>(_onPrintReceipt);
     on<ClearScanFeedbackEvent>(_onClearScanFeedback);
   }
@@ -106,6 +108,43 @@ class BillingBloc extends Bloc<BillingEvent, BillingState> {
     emit(const BillingState());
   }
 
+  /// Records the current cart as a [Sale] in history. This is the only thing
+  /// that "completes" a sale — printing a receipt is optional and separate.
+  Future<void> _onCompleteSale(
+      CompleteSaleEvent event, Emitter<BillingState> emit) async {
+    if (state.cartItems.isEmpty) return;
+
+    emit(state.copyWith(isSavingSale: true, clearError: true));
+
+    final sale = Sale(
+      id: const Uuid().v4(),
+      dateTime: DateTime.now(),
+      total: state.totalAmount,
+      items: state.cartItems
+          .map((item) => SaleItem(
+                productName: item.product.name,
+                barcode: item.product.barcode,
+                unitPrice: item.product.price,
+                quantity: item.quantity,
+              ))
+          .toList(),
+    );
+
+    final result = await saveSaleUseCase(sale);
+    result.fold(
+      (failure) {
+        // Keep the cart intact so the cashier can retry the save.
+        emit(state.copyWith(
+            isSavingSale: false,
+            error: BillingErrorCode.saleSaveFailed,
+            clearError: false));
+        emit(state.copyWith(clearError: true));
+      },
+      (_) => emit(state.copyWith(
+          isSavingSale: false, saleCompleted: true, cartItems: [])),
+    );
+  }
+
   Future<void> _onPrintReceipt(
       PrintReceiptEvent event, Emitter<BillingState> emit) async {
     final printerHelper = PrinterHelper();
@@ -133,11 +172,11 @@ class BillingBloc extends Bloc<BillingEvent, BillingState> {
         isPrinting: true, printSuccess: false, clearError: true));
 
     try {
-      final items = state.cartItems
+      final items = event.sale.items
           .map((item) => {
-                'name': item.product.name,
+                'name': item.productName,
                 'qty': item.quantity,
-                'price': item.product.price,
+                'price': item.unitPrice,
                 'total': item.total,
               })
           .toList();
@@ -148,36 +187,17 @@ class BillingBloc extends Bloc<BillingEvent, BillingState> {
           address2: event.address2,
           phone: event.phone,
           items: items,
-          total: state.totalAmount,
+          total: event.sale.total,
+          dateTime: event.sale.dateTime,
           footer: event.footer,
           itemColumnLabel: event.itemColumnLabel,
           priceColumnLabel: event.priceColumnLabel,
           totalColumnLabel: event.totalColumnLabel,
           totalLinePrefix: event.totalLinePrefix,
-          itemsCount: state.itemsCount,
+          itemsCount: event.sale.itemsCount,
           itemsCountLabel: event.itemsCountLabel);
 
-      // Printing succeeded: record the sale (snapshot of items) before
-      // clearing the cart. A save failure here is non-critical — the receipt
-      // already printed — so it is ignored, same as other secondary failures
-      // in this bloc.
-      final sale = Sale(
-        id: const Uuid().v4(),
-        dateTime: DateTime.now(),
-        total: state.totalAmount,
-        items: state.cartItems
-            .map((item) => SaleItem(
-                  productName: item.product.name,
-                  barcode: item.product.barcode,
-                  unitPrice: item.product.price,
-                  quantity: item.quantity,
-                ))
-            .toList(),
-      );
-      await saveSaleUseCase(sale);
-
-      emit(state.copyWith(
-          isPrinting: false, printSuccess: true, cartItems: []));
+      emit(state.copyWith(isPrinting: false, printSuccess: true));
     } catch (e) {
       emit(state.copyWith(
           isPrinting: false,

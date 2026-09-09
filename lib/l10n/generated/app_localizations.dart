@@ -482,6 +482,24 @@ abstract class AppLocalizations {
   /// **'Print Receipt'**
   String get checkoutPrintReceiptButton;
 
+  /// Primary button on the checkout page that records the sale in history; printing a receipt is a separate optional action
+  ///
+  /// In en, this message translates to:
+  /// **'Complete Sale'**
+  String get checkoutCompleteSaleButton;
+
+  /// Snackbar confirming the sale was saved to history after tapping Complete Sale
+  ///
+  /// In en, this message translates to:
+  /// **'Sale recorded'**
+  String get checkoutSaleRecorded;
+
+  /// Error snackbar shown when persisting the sale to local storage fails; the cart is kept so the cashier can retry
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t save the sale. Please try again.'**
+  String get checkoutSaleSaveFailed;
+
   /// App bar title of the standalone barcode scanner page
   ///
   /// In en, this message translates to:
@@ -685,6 +703,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No sales yet'**
   String get salesHistoryEmptyTitle;
+
+  /// Date label used in place of a calendar date when something happened on the current day
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get commonToday;
 
   /// Item quantity summary shown on each sale card in the history list
   ///

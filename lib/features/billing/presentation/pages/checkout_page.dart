@@ -44,12 +44,16 @@ class _CheckoutPageState extends State<CheckoutPage> {
           ),
           body: BlocConsumer<BillingBloc, BillingState>(
             listener: (context, state) {
-              if (state.printSuccess) {
+              if (state.saleCompleted) {
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    content: Text(l10n.checkoutPrintedSuccessfully),
+                    content: Text(l10n.checkoutSaleRecorded),
                     backgroundColor: Colors.green));
-                // context.read<BillingBloc>().add(ClearCartEvent());
-                // context.go('/');
+                // The sale is recorded and the cart emptied inside the bloc;
+                // reset the rest of the billing state and return to the
+                // scanner. Printing a receipt is now an optional action done
+                // later from the sale's detail page.
+                context.read<BillingBloc>().add(ClearCartEvent());
+                context.go('/');
               }
             },
             builder: (context, billingState) {
@@ -227,35 +231,13 @@ class _CheckoutPageState extends State<CheckoutPage> {
                           ),
                           PrimaryButton(
                             onPressed: () {
-                              if (shopState is ShopLoaded) {
-                                context.read<BillingBloc>().add(
-                                    PrintReceiptEvent(
-                                        shopName: shopState.shop.name,
-                                        address1: shopState.shop.addressLine1,
-                                        address2: shopState.shop.addressLine2,
-                                        phone: shopState.shop.phoneNumber,
-                                        footer: shopState.shop.footerText,
-                                        itemColumnLabel:
-                                            l10n.receiptColumnItem,
-                                        priceColumnLabel:
-                                            l10n.receiptColumnPrice,
-                                        totalColumnLabel:
-                                            l10n.receiptColumnTotal,
-                                        totalLinePrefix:
-                                            l10n.receiptTotalPrefix,
-                                        itemsCountLabel:
-                                            l10n.receiptItemsCountLabel));
-                              } else {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                        content: Text(
-                                            l10n.checkoutShopDetailsNotLoaded),
-                                        backgroundColor: Colors.red));
-                              }
+                              context
+                                  .read<BillingBloc>()
+                                  .add(const CompleteSaleEvent());
                             },
-                            label: l10n.checkoutPrintReceiptButton,
-                            icon: Icons.print,
-                            isLoading: billingState.isPrinting,
+                            label: l10n.checkoutCompleteSaleButton,
+                            icon: Icons.point_of_sale,
+                            isLoading: billingState.isSavingSale,
                           ),
                         ],
                       ),

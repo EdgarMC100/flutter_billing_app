@@ -221,6 +221,16 @@ class AppLocalizationsEs extends AppLocalizations {
   String get checkoutPrintReceiptButton => 'Imprimir recibo';
 
   @override
+  String get checkoutCompleteSaleButton => 'Finalizar venta';
+
+  @override
+  String get checkoutSaleRecorded => 'Venta registrada';
+
+  @override
+  String get checkoutSaleSaveFailed =>
+      'No se pudo guardar la venta. Inténtalo de nuevo.';
+
+  @override
   String get scannerAppBarTitle => 'Escanear código';
 
   @override
@@ -332,6 +342,9 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get salesHistoryEmptyTitle => 'Aún no hay ventas';
+
+  @override
+  String get commonToday => 'Hoy';
 
   @override
   String salesHistoryItemsCount(int count) {

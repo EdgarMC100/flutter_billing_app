@@ -282,6 +282,18 @@
   "@checkoutPrintReceiptButton": {
     "description": "Button label to print the receipt"
   },
+  "checkoutCompleteSaleButton": "Complete Sale",
+  "@checkoutCompleteSaleButton": {
+    "description": "Primary button on the checkout page that records the sale in history; printing a receipt is a separate optional action"
+  },
+  "checkoutSaleRecorded": "Sale recorded",
+  "@checkoutSaleRecorded": {
+    "description": "Snackbar confirming the sale was saved to history after tapping Complete Sale"
+  },
+  "checkoutSaleSaveFailed": "Couldn't save the sale. Please try again.",
+  "@checkoutSaleSaveFailed": {
+    "description": "Error snackbar shown when persisting the sale to local storage fails; the cart is kept so the cashier can retry"
+  },
   "scannerAppBarTitle": "Scan Barcode",
   "@scannerAppBarTitle": {
     "description": "App bar title of the standalone barcode scanner page"
@@ -427,6 +439,10 @@
   "salesHistoryEmptyTitle": "No sales yet",
   "@salesHistoryEmptyTitle": {
     "description": "Empty state heading shown when no sales have been recorded"
+  },
+  "commonToday": "Today",
+  "@commonToday": {
+    "description": "Date label used in place of a calendar date when something happened on the current day"
   },
   "salesHistoryItemsCount": "{count} items",
   "@salesHistoryItemsCount": {

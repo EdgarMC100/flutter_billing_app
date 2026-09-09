@@ -64,6 +64,9 @@
   "checkoutGrandTotalLabel": "TOTAL GENERAL",
   "checkoutShopDetailsNotLoaded": "No se cargaron los datos del negocio",
   "checkoutPrintReceiptButton": "Imprimir recibo",
+  "checkoutCompleteSaleButton": "Finalizar venta",
+  "checkoutSaleRecorded": "Venta registrada",
+  "checkoutSaleSaveFailed": "No se pudo guardar la venta. Inténtalo de nuevo.",
   "scannerAppBarTitle": "Escanear código",
   "scannerAlignHint": "Alinea el código de barras dentro del marco",
   "commonRequiredError": "Obligatorio",
@@ -98,6 +101,7 @@
   "settingsSalesHistorySubtitle": "Consulta las ventas realizadas",
   "salesHistoryAppBarTitle": "Historial de ventas",
   "salesHistoryEmptyTitle": "Aún no hay ventas",
+  "commonToday": "Hoy",
   "salesHistoryItemsCount": "{count} artículos",
   "saleDetailAppBarTitle": "Detalle de venta"
 }
