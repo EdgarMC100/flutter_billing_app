@@ -202,9 +202,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get checkoutColumnTotal => 'Total';
 
   @override
-  String get checkoutScanToPay => 'Scan to Pay';
-
-  @override
   String get checkoutGrandTotalLabel => 'GRAND TOTAL';
 
   @override

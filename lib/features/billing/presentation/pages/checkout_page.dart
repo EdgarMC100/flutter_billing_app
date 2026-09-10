@@ -2,9 +2,7 @@ import 'package:billing_app/core/widgets/primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:pretty_qr_code/pretty_qr_code.dart';
 
-import '../../../shop/presentation/bloc/shop_bloc.dart';
 import '../../../../l10n/generated/app_localizations.dart';
 import '../bloc/billing_bloc.dart';
 
@@ -57,17 +55,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
               }
             },
             builder: (context, billingState) {
-              return BlocBuilder<ShopBloc, ShopState>(
-                  builder: (context, shopState) {
-                String upiId = '';
-                String shopName = 'Shop';
-
-                if (shopState is ShopLoaded) {
-                  upiId = shopState.shop.upiId;
-                  shopName = shopState.shop.name;
-                }
-
-                return Column(
+              return Column(
                   children: [
                     Expanded(
                       child: SingleChildScrollView(
@@ -177,30 +165,6 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                 const SizedBox(
                                   height: 8,
                                 ),
-                                upiId.isNotEmpty
-                                    ? Column(
-                                        children: [
-                                          Text(
-                                            l10n.checkoutScanToPay,
-                                            style: const TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black87,
-                                              letterSpacing: 1.1,
-                                            ),
-                                          ),
-                                          const SizedBox(height: 12),
-                                          SizedBox(
-                                            width: 180,
-                                            height: 180,
-                                            child: PrettyQrView.data(
-                                              data:
-                                                  'upi://pay?pa=$upiId&pn=$shopName&am=${billingState.totalAmount.toStringAsFixed(2)}&cu=INR',
-                                            ),
-                                          ),
-                                        ],
-                                      )
-                                    : const SizedBox.shrink(),
                                 const SizedBox(height: 15),
                                 Row(
                                   mainAxisAlignment:
@@ -244,7 +208,6 @@ class _CheckoutPageState extends State<CheckoutPage> {
                     ),
                   ],
                 );
-              });
             },
           ),
         ));

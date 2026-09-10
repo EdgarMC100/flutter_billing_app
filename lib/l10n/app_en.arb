@@ -266,10 +266,6 @@
   "@checkoutColumnTotal": {
     "description": "Header of the line total column in the checkout items table"
   },
-  "checkoutScanToPay": "Scan to Pay",
-  "@checkoutScanToPay": {
-    "description": "Heading above the UPI payment QR code"
-  },
   "checkoutGrandTotalLabel": "GRAND TOTAL",
   "@checkoutGrandTotalLabel": {
     "description": "Label above the final total amount on the checkout bottom bar"

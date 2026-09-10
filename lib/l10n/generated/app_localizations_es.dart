@@ -208,9 +208,6 @@ class AppLocalizationsEs extends AppLocalizations {
   String get checkoutColumnTotal => 'Total';
 
   @override
-  String get checkoutScanToPay => 'Escanea para pagar';
-
-  @override
   String get checkoutGrandTotalLabel => 'TOTAL GENERAL';
 
   @override
