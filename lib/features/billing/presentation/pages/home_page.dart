@@ -5,6 +5,7 @@ import 'package:vibration/vibration.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:billing_app/core/utils/sound_helper.dart';
 import '../../../billing/presentation/bloc/billing_bloc.dart';
+import '../billing_error_messages.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../core/widgets/primary_button.dart';
 import '../../../../l10n/generated/app_localizations.dart';
@@ -70,20 +71,6 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  String _billingErrorMessage(AppLocalizations l10n, String code) {
-    if (code == BillingErrorCode.autoConnectFailed) {
-      return l10n.billingAutoConnectFailed;
-    }
-    if (code == BillingErrorCode.noPrinterConfigured) {
-      return l10n.billingNoPrinterConfigured;
-    }
-    if (code.startsWith(BillingErrorCode.printFailedPrefix)) {
-      final rawError = code.substring(BillingErrorCode.printFailedPrefix.length);
-      return l10n.billingPrintFailedError(rawError);
-    }
-    return code;
-  }
-
   Future<void> _showProductNotFoundDialog(
       BuildContext context, String barcode) async {
     _scannerController.stop();
@@ -129,7 +116,7 @@ class _HomePageState extends State<HomePage> {
               if (state.error != null) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
-                    content: Text(_billingErrorMessage(
+                    content: Text(billingErrorMessage(
                         AppLocalizations.of(context), state.error!)),
                     backgroundColor: Colors.red,
                     behavior: SnackBarBehavior.floating,

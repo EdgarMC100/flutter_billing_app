@@ -214,6 +214,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get checkoutPrintReceiptButton => 'Print Receipt';
 
   @override
+  String get checkoutCompleteSaleButton => 'Complete Sale';
+
+  @override
+  String get checkoutSaleRecorded => 'Sale recorded';
+
+  @override
+  String get checkoutSaleSaveFailed =>
+      'Couldn\'t save the sale. Please try again.';
+
+  @override
   String get scannerAppBarTitle => 'Scan Barcode';
 
   @override
@@ -309,4 +319,57 @@ class AppLocalizationsEn extends AppLocalizations {
   String settingsAppVersionLabel(String version) {
     return 'Version $version';
   }
+
+  @override
+  String get settingsSalesHistoryTitle => 'Sales History';
+
+  @override
+  String get settingsSalesHistorySubtitle => 'Review past completed sales';
+
+  @override
+  String get salesHistoryAppBarTitle => 'Sales History';
+
+  @override
+  String get salesHistoryEmptyTitle => 'No sales yet';
+
+  @override
+  String get commonToday => 'Today';
+
+  @override
+  String salesHistoryItemsCount(int count) {
+    return '$count items';
+  }
+
+  @override
+  String get saleDetailAppBarTitle => 'Sale Detail';
+
+  @override
+  String get onboardingWelcomeTitle => 'Welcome';
+
+  @override
+  String get onboardingWelcomeBody =>
+      'Point of sale and billing that works entirely offline. Let\'s set up your shop.';
+
+  @override
+  String get onboardingWelcomeCta => 'Get started';
+
+  @override
+  String get onboardingProfileTitle => 'Your shop';
+
+  @override
+  String get onboardingProfileSubtitle =>
+      'These details appear on the receipts you print.';
+
+  @override
+  String get onboardingProfileCta => 'Continue';
+
+  @override
+  String get onboardingDoneTitle => 'You\'re all set!';
+
+  @override
+  String get onboardingDoneBody =>
+      'You can pair a printer and change the language anytime from Settings.';
+
+  @override
+  String get onboardingDoneCta => 'Go to home';
 }

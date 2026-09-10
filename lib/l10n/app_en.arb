@@ -282,6 +282,18 @@
   "@checkoutPrintReceiptButton": {
     "description": "Button label to print the receipt"
   },
+  "checkoutCompleteSaleButton": "Complete Sale",
+  "@checkoutCompleteSaleButton": {
+    "description": "Primary button on the checkout page that records the sale in history; printing a receipt is a separate optional action"
+  },
+  "checkoutSaleRecorded": "Sale recorded",
+  "@checkoutSaleRecorded": {
+    "description": "Snackbar confirming the sale was saved to history after tapping Complete Sale"
+  },
+  "checkoutSaleSaveFailed": "Couldn't save the sale. Please try again.",
+  "@checkoutSaleSaveFailed": {
+    "description": "Error snackbar shown when persisting the sale to local storage fails; the cart is kept so the cashier can retry"
+  },
   "scannerAppBarTitle": "Scan Barcode",
   "@scannerAppBarTitle": {
     "description": "App bar title of the standalone barcode scanner page"
@@ -411,5 +423,74 @@
         "type": "String"
       }
     }
+  },
+  "settingsSalesHistoryTitle": "Sales History",
+  "@settingsSalesHistoryTitle": {
+    "description": "Settings list item title opening the sales history page"
+  },
+  "settingsSalesHistorySubtitle": "Review past completed sales",
+  "@settingsSalesHistorySubtitle": {
+    "description": "Settings list item subtitle for the sales history entry"
+  },
+  "salesHistoryAppBarTitle": "Sales History",
+  "@salesHistoryAppBarTitle": {
+    "description": "App bar title on the sales history list page"
+  },
+  "salesHistoryEmptyTitle": "No sales yet",
+  "@salesHistoryEmptyTitle": {
+    "description": "Empty state heading shown when no sales have been recorded"
+  },
+  "commonToday": "Today",
+  "@commonToday": {
+    "description": "Date label used in place of a calendar date when something happened on the current day"
+  },
+  "salesHistoryItemsCount": "{count} items",
+  "@salesHistoryItemsCount": {
+    "description": "Item quantity summary shown on each sale card in the history list",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "saleDetailAppBarTitle": "Sale Detail",
+  "@saleDetailAppBarTitle": {
+    "description": "App bar title on the individual sale detail page"
+  },
+  "onboardingWelcomeTitle": "Welcome",
+  "@onboardingWelcomeTitle": {
+    "description": "Heading on the first onboarding screen"
+  },
+  "onboardingWelcomeBody": "Point of sale and billing that works entirely offline. Let's set up your shop.",
+  "@onboardingWelcomeBody": {
+    "description": "Body text on the first onboarding screen"
+  },
+  "onboardingWelcomeCta": "Get started",
+  "@onboardingWelcomeCta": {
+    "description": "Button that starts the onboarding flow"
+  },
+  "onboardingProfileTitle": "Your shop",
+  "@onboardingProfileTitle": {
+    "description": "Heading on the onboarding profile-setup screen"
+  },
+  "onboardingProfileSubtitle": "These details appear on the receipts you print.",
+  "@onboardingProfileSubtitle": {
+    "description": "Subtitle on the onboarding profile-setup screen"
+  },
+  "onboardingProfileCta": "Continue",
+  "@onboardingProfileCta": {
+    "description": "Button that saves the shop profile and advances onboarding"
+  },
+  "onboardingDoneTitle": "You're all set!",
+  "@onboardingDoneTitle": {
+    "description": "Heading on the final onboarding screen"
+  },
+  "onboardingDoneBody": "You can pair a printer and change the language anytime from Settings.",
+  "@onboardingDoneBody": {
+    "description": "Body text on the final onboarding screen"
+  },
+  "onboardingDoneCta": "Go to home",
+  "@onboardingDoneCta": {
+    "description": "Button that finishes onboarding and opens the home page"
   }
 }

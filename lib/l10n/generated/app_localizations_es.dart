@@ -221,6 +221,16 @@ class AppLocalizationsEs extends AppLocalizations {
   String get checkoutPrintReceiptButton => 'Imprimir recibo';
 
   @override
+  String get checkoutCompleteSaleButton => 'Finalizar venta';
+
+  @override
+  String get checkoutSaleRecorded => 'Venta registrada';
+
+  @override
+  String get checkoutSaleSaveFailed =>
+      'No se pudo guardar la venta. Inténtalo de nuevo.';
+
+  @override
   String get scannerAppBarTitle => 'Escanear código';
 
   @override
@@ -320,4 +330,57 @@ class AppLocalizationsEs extends AppLocalizations {
   String settingsAppVersionLabel(String version) {
     return 'Versión $version';
   }
+
+  @override
+  String get settingsSalesHistoryTitle => 'Historial de ventas';
+
+  @override
+  String get settingsSalesHistorySubtitle => 'Consulta las ventas realizadas';
+
+  @override
+  String get salesHistoryAppBarTitle => 'Historial de ventas';
+
+  @override
+  String get salesHistoryEmptyTitle => 'Aún no hay ventas';
+
+  @override
+  String get commonToday => 'Hoy';
+
+  @override
+  String salesHistoryItemsCount(int count) {
+    return '$count artículos';
+  }
+
+  @override
+  String get saleDetailAppBarTitle => 'Detalle de venta';
+
+  @override
+  String get onboardingWelcomeTitle => 'Te damos la bienvenida';
+
+  @override
+  String get onboardingWelcomeBody =>
+      'Punto de venta y facturación que funciona totalmente sin conexión. Configuremos tu negocio.';
+
+  @override
+  String get onboardingWelcomeCta => 'Comenzar';
+
+  @override
+  String get onboardingProfileTitle => 'Tu negocio';
+
+  @override
+  String get onboardingProfileSubtitle =>
+      'Estos datos aparecen en los recibos que imprimes.';
+
+  @override
+  String get onboardingProfileCta => 'Continuar';
+
+  @override
+  String get onboardingDoneTitle => '¡Todo listo!';
+
+  @override
+  String get onboardingDoneBody =>
+      'Puedes vincular una impresora y cambiar el idioma cuando quieras desde Ajustes.';
+
+  @override
+  String get onboardingDoneCta => 'Ir al inicio';
 }

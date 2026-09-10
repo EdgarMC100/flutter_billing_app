@@ -13,6 +13,12 @@ import '../../features/settings/presentation/bloc/printer_bloc.dart';
 import '../../features/settings/data/repositories/locale_repository_impl.dart';
 import '../../features/settings/domain/repositories/locale_repository.dart';
 import '../../features/settings/presentation/bloc/locale_bloc.dart';
+import '../../features/sales/data/repositories/sale_repository_impl.dart';
+import '../../features/sales/domain/repositories/sale_repository.dart';
+import '../../features/sales/domain/usecases/sale_usecases.dart';
+import '../../features/sales/presentation/bloc/sale_bloc.dart';
+import '../../features/onboarding/data/repositories/onboarding_repository_impl.dart';
+import '../../features/onboarding/domain/repositories/onboarding_repository.dart';
 
 final sl = GetIt.instance;
 
@@ -77,5 +83,22 @@ Future<void> init() async {
   // Features - Settings / Locale
   sl.registerLazySingleton<LocaleRepository>(
     () => LocaleRepositoryImpl(),
+  );
+
+  // Features - Sales
+  sl.registerFactory(
+    () => SaleBloc(getSalesUseCase: sl()),
+  );
+
+  sl.registerLazySingleton(() => GetSalesUseCase(sl()));
+  sl.registerLazySingleton(() => SaveSaleUseCase(sl()));
+
+  sl.registerLazySingleton<SaleRepository>(
+    () => SaleRepositoryImpl(),
+  );
+
+  // Features - Onboarding
+  sl.registerLazySingleton<OnboardingRepository>(
+    () => OnboardingRepositoryImpl(),
   );
 }

@@ -39,7 +39,16 @@ class ClearCartEvent extends BillingEvent {}
 
 class ClearScanFeedbackEvent extends BillingEvent {}
 
+/// Records the current cart as a [Sale] in history. Always persists the sale;
+/// printing a receipt is a separate, optional action (see [PrintReceiptEvent]).
+class CompleteSaleEvent extends BillingEvent {
+  const CompleteSaleEvent();
+}
+
 class PrintReceiptEvent extends BillingEvent {
+  /// The sale to print. Passed explicitly so a receipt can be (re)printed for
+  /// any past sale from the history detail page, not just the live cart.
+  final Sale sale;
   final String shopName;
   final String address1;
   final String address2;
@@ -52,6 +61,7 @@ class PrintReceiptEvent extends BillingEvent {
   final String itemsCountLabel;
 
   const PrintReceiptEvent({
+    required this.sale,
     required this.shopName,
     required this.address1,
     required this.address2,
@@ -66,6 +76,7 @@ class PrintReceiptEvent extends BillingEvent {
 
   @override
   List<Object> get props => [
+        sale,
         shopName,
         address1,
         address2,

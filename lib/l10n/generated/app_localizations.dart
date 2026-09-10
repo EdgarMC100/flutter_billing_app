@@ -482,6 +482,24 @@ abstract class AppLocalizations {
   /// **'Print Receipt'**
   String get checkoutPrintReceiptButton;
 
+  /// Primary button on the checkout page that records the sale in history; printing a receipt is a separate optional action
+  ///
+  /// In en, this message translates to:
+  /// **'Complete Sale'**
+  String get checkoutCompleteSaleButton;
+
+  /// Snackbar confirming the sale was saved to history after tapping Complete Sale
+  ///
+  /// In en, this message translates to:
+  /// **'Sale recorded'**
+  String get checkoutSaleRecorded;
+
+  /// Error snackbar shown when persisting the sale to local storage fails; the cart is kept so the cashier can retry
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t save the sale. Please try again.'**
+  String get checkoutSaleSaveFailed;
+
   /// App bar title of the standalone barcode scanner page
   ///
   /// In en, this message translates to:
@@ -661,6 +679,102 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Version {version}'**
   String settingsAppVersionLabel(String version);
+
+  /// Settings list item title opening the sales history page
+  ///
+  /// In en, this message translates to:
+  /// **'Sales History'**
+  String get settingsSalesHistoryTitle;
+
+  /// Settings list item subtitle for the sales history entry
+  ///
+  /// In en, this message translates to:
+  /// **'Review past completed sales'**
+  String get settingsSalesHistorySubtitle;
+
+  /// App bar title on the sales history list page
+  ///
+  /// In en, this message translates to:
+  /// **'Sales History'**
+  String get salesHistoryAppBarTitle;
+
+  /// Empty state heading shown when no sales have been recorded
+  ///
+  /// In en, this message translates to:
+  /// **'No sales yet'**
+  String get salesHistoryEmptyTitle;
+
+  /// Date label used in place of a calendar date when something happened on the current day
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get commonToday;
+
+  /// Item quantity summary shown on each sale card in the history list
+  ///
+  /// In en, this message translates to:
+  /// **'{count} items'**
+  String salesHistoryItemsCount(int count);
+
+  /// App bar title on the individual sale detail page
+  ///
+  /// In en, this message translates to:
+  /// **'Sale Detail'**
+  String get saleDetailAppBarTitle;
+
+  /// Heading on the first onboarding screen
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome'**
+  String get onboardingWelcomeTitle;
+
+  /// Body text on the first onboarding screen
+  ///
+  /// In en, this message translates to:
+  /// **'Point of sale and billing that works entirely offline. Let\'s set up your shop.'**
+  String get onboardingWelcomeBody;
+
+  /// Button that starts the onboarding flow
+  ///
+  /// In en, this message translates to:
+  /// **'Get started'**
+  String get onboardingWelcomeCta;
+
+  /// Heading on the onboarding profile-setup screen
+  ///
+  /// In en, this message translates to:
+  /// **'Your shop'**
+  String get onboardingProfileTitle;
+
+  /// Subtitle on the onboarding profile-setup screen
+  ///
+  /// In en, this message translates to:
+  /// **'These details appear on the receipts you print.'**
+  String get onboardingProfileSubtitle;
+
+  /// Button that saves the shop profile and advances onboarding
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get onboardingProfileCta;
+
+  /// Heading on the final onboarding screen
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re all set!'**
+  String get onboardingDoneTitle;
+
+  /// Body text on the final onboarding screen
+  ///
+  /// In en, this message translates to:
+  /// **'You can pair a printer and change the language anytime from Settings.'**
+  String get onboardingDoneBody;
+
+  /// Button that finishes onboarding and opens the home page
+  ///
+  /// In en, this message translates to:
+  /// **'Go to home'**
+  String get onboardingDoneCta;
 }
 
 class _AppLocalizationsDelegate
