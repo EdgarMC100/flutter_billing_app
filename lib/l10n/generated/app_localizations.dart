@@ -458,12 +458,6 @@ abstract class AppLocalizations {
   /// **'Total'**
   String get checkoutColumnTotal;
 
-  /// Heading above the UPI payment QR code
-  ///
-  /// In en, this message translates to:
-  /// **'Scan to Pay'**
-  String get checkoutScanToPay;
-
   /// Label above the final total amount on the checkout bottom bar
   ///
   /// In en, this message translates to:

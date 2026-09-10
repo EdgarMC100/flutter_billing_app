@@ -60,7 +60,6 @@
   "checkoutColumnProductName": "Producto",
   "checkoutColumnPrice": "Precio",
   "checkoutColumnTotal": "Total",
-  "checkoutScanToPay": "Escanea para pagar",
   "checkoutGrandTotalLabel": "TOTAL GENERAL",
   "checkoutShopDetailsNotLoaded": "No se cargaron los datos del negocio",
   "checkoutPrintReceiptButton": "Imprimir recibo",
