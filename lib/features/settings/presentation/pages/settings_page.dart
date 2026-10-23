@@ -138,6 +138,13 @@ class _SettingsPageState extends State<SettingsPage> {
                   subtitle: l10n.settingsShopDetailsSubtitle,
                   onTap: () => context.push('/shop'),
                 ),
+                _buildDivider(),
+                _buildListItem(
+                  icon: Icons.receipt_long,
+                  title: l10n.settingsSalesTitle,
+                  subtitle: l10n.settingsSalesSubtitle,
+                  onTap: () => context.push('/sales'),
+                ),
               ],
             ),
 

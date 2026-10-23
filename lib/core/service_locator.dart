@@ -3,6 +3,10 @@ import '../../features/product/data/repositories/product_repository_impl.dart';
 import '../../features/product/domain/repositories/product_repository.dart';
 import '../../features/product/domain/usecases/product_usecases.dart';
 import '../../features/product/presentation/bloc/product_bloc.dart';
+import '../../features/report/data/repositories/sale_repository_impl.dart';
+import '../../features/report/domain/repositories/sale_repository.dart';
+import '../../features/report/domain/usecases/sale_usecases.dart';
+import '../../features/report/presentation/bloc/report_bloc.dart';
 import '../../features/shop/data/repositories/shop_repository_impl.dart';
 import '../../features/shop/domain/repositories/shop_repository.dart';
 import '../../features/shop/domain/usecases/shop_usecases.dart';
@@ -47,12 +51,28 @@ Future<void> init() async {
     ),
   );
 
+  sl.registerFactory(
+    () => ReportBloc(
+      getSalesUseCase: sl(),
+    ),
+  );
+
   // Use cases
   sl.registerLazySingleton(() => GetProductsUseCase(sl()));
   sl.registerLazySingleton(() => AddProductUseCase(sl()));
   sl.registerLazySingleton(() => UpdateProductUseCase(sl()));
   sl.registerLazySingleton(() => DeleteProductUseCase(sl()));
   sl.registerLazySingleton(() => GetProductByBarcodeUseCase(sl()));
+
+  // Features - Report
+  // Use cases
+  sl.registerLazySingleton(() => GetSalesUseCase(sl()));
+  sl.registerLazySingleton(() => SaveSaleUseCase(sl()));
+
+  // Repository
+  sl.registerLazySingleton<SaleRepository>(
+    () => SaleRepositoryImpl(),
+  );
 
   // Repository
   sl.registerLazySingleton<ProductRepository>(

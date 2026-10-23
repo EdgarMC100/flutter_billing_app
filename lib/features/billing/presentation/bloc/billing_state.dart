@@ -7,12 +7,18 @@ class BillingState extends Equatable {
   final bool isPrinting;
   final bool printSuccess;
 
+  /// Whether the current cart contents were already persisted as a [Sale].
+  /// Prevents recording the same cart twice on reprint; resets whenever the
+  /// cart changes.
+  final bool saleRecorded;
+
   const BillingState({
     this.cartItems = const [],
     this.error,
     this.notFoundBarcode,
     this.isPrinting = false,
     this.printSuccess = false,
+    this.saleRecorded = false,
   });
 
   double get totalAmount => cartItems.fold(0, (sum, item) => sum + item.total);
@@ -28,6 +34,7 @@ class BillingState extends Equatable {
     bool clearNotFoundBarcode = false,
     bool? isPrinting,
     bool? printSuccess,
+    bool? saleRecorded,
   }) {
     return BillingState(
       cartItems: cartItems ?? this.cartItems,
@@ -37,10 +44,11 @@ class BillingState extends Equatable {
           : (notFoundBarcode ?? this.notFoundBarcode),
       isPrinting: isPrinting ?? this.isPrinting,
       printSuccess: printSuccess ?? this.printSuccess,
+      saleRecorded: saleRecorded ?? this.saleRecorded,
     );
   }
 
   @override
   List<Object?> get props =>
-      [cartItems, error, notFoundBarcode, isPrinting, printSuccess];
+      [cartItems, error, notFoundBarcode, isPrinting, printSuccess, saleRecorded];
 }

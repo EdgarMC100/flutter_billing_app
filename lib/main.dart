@@ -6,6 +6,7 @@ import 'core/service_locator.dart' as di;
 import 'core/theme/app_theme.dart';
 import 'features/billing/presentation/bloc/billing_bloc.dart';
 import 'features/product/presentation/bloc/product_bloc.dart';
+import 'features/report/presentation/bloc/report_bloc.dart';
 import 'features/shop/presentation/bloc/shop_bloc.dart';
 import 'features/settings/presentation/bloc/printer_bloc.dart';
 import 'features/settings/presentation/bloc/printer_event.dart';
@@ -33,8 +34,11 @@ class MyApp extends StatelessWidget {
         BlocProvider<ShopBloc>(
             create: (context) => di.sl<ShopBloc>()..add(LoadShopEvent())),
         BlocProvider<BillingBloc>(
-            create: (context) =>
-                BillingBloc(getProductByBarcodeUseCase: di.sl())),
+            create: (context) => BillingBloc(
+                getProductByBarcodeUseCase: di.sl(),
+                saveSaleUseCase: di.sl())),
+        BlocProvider<ReportBloc>(
+            create: (context) => di.sl<ReportBloc>()..add(const LoadSales())),
         BlocProvider<PrinterBloc>(
             create: (context) => di.sl<PrinterBloc>()..add(InitPrinterEvent())),
         BlocProvider<LocaleBloc>(

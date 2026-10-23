@@ -309,4 +309,80 @@ class AppLocalizationsEn extends AppLocalizations {
   String settingsAppVersionLabel(String version) {
     return 'Version $version';
   }
+
+  @override
+  String get settingsSalesTitle => 'Sales Report';
+
+  @override
+  String get settingsSalesSubtitle => 'Sales by day, biweekly & month';
+
+  @override
+  String get reportAppBarTitle => 'Sales Report';
+
+  @override
+  String get reportGroupDay => 'Day';
+
+  @override
+  String get reportGroupBiweekly => 'Biweekly';
+
+  @override
+  String get reportGroupMonth => 'Month';
+
+  @override
+  String get reportTotalLabel => 'Total Sales';
+
+  @override
+  String reportAllTimeSalesCount(int count) {
+    return '$count sales recorded';
+  }
+
+  @override
+  String get reportChartTitle => 'By Period';
+
+  @override
+  String reportPeriodSummary(int sales, int items) {
+    return '$sales sales · $items items';
+  }
+
+  @override
+  String get reportEmptyTitle => 'No sales yet';
+
+  @override
+  String get reportEmptyMessage =>
+      'Every receipt you print at checkout is recorded here and grouped by day, biweekly or month.';
+
+  @override
+  String reportErrorPrefix(String message) {
+    return 'Error: $message';
+  }
+
+  @override
+  String get reportDetailEmptyTitle => 'No sales in this period';
+
+  @override
+  String get reportDetailEmptyMessage =>
+      'Nothing was recorded between these dates.';
+
+  @override
+  String get reportDetailMissingPeriod => 'That period is no longer available.';
+
+  @override
+  String reportDetailLineItemSummary(int quantity, String unitPrice) {
+    return '×$quantity @ $unitPrice';
+  }
+
+  @override
+  String get reportDetailSalesLabel => 'Sales';
+
+  @override
+  String get reportDetailItemsLabel => 'Items';
+
+  @override
+  String reportDetailProductCount(int count) {
+    return '$count products';
+  }
+
+  @override
+  String get billingSaleSaveFailed =>
+      'Receipt printed, but the sale could not be recorded';
 }

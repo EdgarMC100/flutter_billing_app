@@ -1,8 +1,11 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:uuid/uuid.dart';
 import '../../domain/entities/cart_item.dart';
 import 'package:billing_app/features/product/domain/entities/product.dart';
 import 'package:billing_app/features/product/domain/usecases/product_usecases.dart';
+import '../../../report/domain/entities/sale.dart';
+import '../../../report/domain/usecases/sale_usecases.dart';
 import '../../../../core/utils/printer_helper.dart';
 import '../../../../core/data/hive_database.dart';
 
@@ -18,13 +21,17 @@ abstract class BillingErrorCode {
   static const autoConnectFailed = 'billing_auto_connect_failed';
   static const noPrinterConfigured = 'billing_no_printer_configured';
   static const printFailedPrefix = 'billing_print_failed:';
+  static const saleSaveFailed = 'billing_save_sale_failed';
 }
 
 class BillingBloc extends Bloc<BillingEvent, BillingState> {
   final GetProductByBarcodeUseCase getProductByBarcodeUseCase;
+  final SaveSaleUseCase saveSaleUseCase;
 
-  BillingBloc({required this.getProductByBarcodeUseCase})
-      : super(const BillingState()) {
+  BillingBloc({
+    required this.getProductByBarcodeUseCase,
+    required this.saveSaleUseCase,
+  }) : super(const BillingState()) {
     on<ScanBarcodeEvent>(_onScanBarcode);
     on<AddProductToCartEvent>(_onAddProductToCart);
     on<RemoveProductFromCartEvent>(_onRemoveProductFromCart);
@@ -63,11 +70,14 @@ class BillingBloc extends Bloc<BillingEvent, BillingState> {
       final backendItems = List<CartItem>.from(cleanState.cartItems);
       backendItems[existingIndex] =
           existingItem.copyWith(quantity: existingItem.quantity + 1);
-      emit(cleanState.copyWith(cartItems: backendItems, error: null));
+      emit(cleanState.copyWith(
+          cartItems: backendItems, error: null, saleRecorded: false));
     } else {
       final newItem = CartItem(product: event.product);
       emit(cleanState.copyWith(
-          cartItems: [...cleanState.cartItems, newItem], error: null));
+          cartItems: [...cleanState.cartItems, newItem],
+          error: null,
+          saleRecorded: false));
     }
   }
 
@@ -76,7 +86,7 @@ class BillingBloc extends Bloc<BillingEvent, BillingState> {
     final updatedList = state.cartItems
         .where((item) => item.product.id != event.productId)
         .toList();
-    emit(state.copyWith(cartItems: updatedList));
+    emit(state.copyWith(cartItems: updatedList, saleRecorded: false));
   }
 
   void _onUpdateQuantity(
@@ -91,7 +101,7 @@ class BillingBloc extends Bloc<BillingEvent, BillingState> {
     if (index >= 0) {
       final items = List<CartItem>.from(state.cartItems);
       items[index] = items[index].copyWith(quantity: event.quantity);
-      emit(state.copyWith(cartItems: items));
+      emit(state.copyWith(cartItems: items, saleRecorded: false));
     }
   }
 
@@ -150,7 +160,42 @@ class BillingBloc extends Bloc<BillingEvent, BillingState> {
           itemsCount: state.itemsCount,
           itemsCountLabel: event.itemsCountLabel);
 
-      emit(state.copyWith(isPrinting: false, printSuccess: true));
+      // The printed receipt is the sale: persist it for the sales report.
+      // [BillingState.saleRecorded] guards against recording the same cart
+      // twice if the user reprints; it resets whenever the cart changes.
+      if (!state.saleRecorded) {
+        final sale = Sale(
+          id: const Uuid().v4(),
+          createdAt: DateTime.now(),
+          total: state.totalAmount,
+          itemsCount: state.itemsCount,
+          lineItems: state.cartItems
+              .map((item) => SaleLineItem(
+                    productName: item.product.name,
+                    quantity: item.quantity,
+                    unitPrice: item.product.price,
+                    total: item.total,
+                  ))
+              .toList(),
+        );
+        final saveResult = await saveSaleUseCase(sale);
+        final saveFailed = saveResult.fold((_) => true, (_) => false);
+
+        if (saveFailed) {
+          // The receipt printed but the sale wasn't recorded; surface it
+          // without blocking the checkout flow.
+          emit(state.copyWith(
+              isPrinting: false,
+              printSuccess: true,
+              error: BillingErrorCode.saleSaveFailed,
+              clearError: false));
+          emit(state.copyWith(clearError: true));
+          return;
+        }
+      }
+
+      emit(state.copyWith(
+          isPrinting: false, printSuccess: true, saleRecorded: true));
     } catch (e) {
       emit(state.copyWith(
           isPrinting: false,

@@ -411,5 +411,120 @@
         "type": "String"
       }
     }
+  },
+  "settingsSalesTitle": "Sales Report",
+  "@settingsSalesTitle": {
+    "description": "Title of the row that navigates to the sales report page"
+  },
+  "settingsSalesSubtitle": "Sales by day, biweekly & month",
+  "@settingsSalesSubtitle": {
+    "description": "Subtitle of the Sales Report row"
+  },
+  "reportAppBarTitle": "Sales Report",
+  "@reportAppBarTitle": {
+    "description": "App bar title of the sales report page"
+  },
+  "reportGroupDay": "Day",
+  "@reportGroupDay": {
+    "description": "Segmented-control option grouping sales by calendar day"
+  },
+  "reportGroupBiweekly": "Biweekly",
+  "@reportGroupBiweekly": {
+    "description": "Segmented-control option grouping sales by semi-monthly period (1st–15th / 16th–end of month)"
+  },
+  "reportGroupMonth": "Month",
+  "@reportGroupMonth": {
+    "description": "Segmented-control option grouping sales by calendar month"
+  },
+  "reportTotalLabel": "Total Sales",
+  "@reportTotalLabel": {
+    "description": "Label above the grand total amount on the sales report page"
+  },
+  "reportAllTimeSalesCount": "{count} sales recorded",
+  "@reportAllTimeSalesCount": {
+    "description": "Subtitle under the grand total showing how many sales exist in total",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "reportChartTitle": "By Period",
+  "@reportChartTitle": {
+    "description": "Section header above the bar chart of period totals"
+  },
+  "reportPeriodSummary": "{sales} sales · {items} items",
+  "@reportPeriodSummary": {
+    "description": "Subtitle of a period card showing its sale and item counts",
+    "placeholders": {
+      "sales": {
+        "type": "int"
+      },
+      "items": {
+        "type": "int"
+      }
+    }
+  },
+  "reportEmptyTitle": "No sales yet",
+  "@reportEmptyTitle": {
+    "description": "Heading shown when no sales have been recorded"
+  },
+  "reportEmptyMessage": "Every receipt you print at checkout is recorded here and grouped by day, biweekly or month.",
+  "@reportEmptyMessage": {
+    "description": "Explanatory text under reportEmptyTitle"
+  },
+  "reportErrorPrefix": "Error: {message}",
+  "@reportErrorPrefix": {
+    "description": "Prefix shown before a bloc error message on the sales report page",
+    "placeholders": {
+      "message": {
+        "type": "String"
+      }
+    }
+  },
+  "reportDetailEmptyTitle": "No sales in this period",
+  "@reportDetailEmptyTitle": {
+    "description": "Heading shown on the period detail page when the selected period has no sales"
+  },
+  "reportDetailEmptyMessage": "Nothing was recorded between these dates.",
+  "@reportDetailEmptyMessage": {
+    "description": "Explanatory text under reportDetailEmptyTitle"
+  },
+  "reportDetailMissingPeriod": "That period is no longer available.",
+  "@reportDetailMissingPeriod": {
+    "description": "Shown when the period detail page is opened without a selected period"
+  },
+  "reportDetailLineItemSummary": "×{quantity} @ {unitPrice}",
+  "@reportDetailLineItemSummary": {
+    "description": "Line under a product name showing quantity sold and unit price",
+    "placeholders": {
+      "quantity": {
+        "type": "int"
+      },
+      "unitPrice": {
+        "type": "String"
+      }
+    }
+  },
+  "reportDetailSalesLabel": "Sales",
+  "@reportDetailSalesLabel": {
+    "description": "Label under the number of receipts in the period summary card"
+  },
+  "reportDetailItemsLabel": "Items",
+  "@reportDetailItemsLabel": {
+    "description": "Label under the number of individual items in the period summary card"
+  },
+  "reportDetailProductCount": "{count} products",
+  "@reportDetailProductCount": {
+    "description": "Line-item count label shown at the bottom of a single sale card",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "billingSaleSaveFailed": "Receipt printed, but the sale could not be recorded",
+  "@billingSaleSaveFailed": {
+    "description": "Error shown on checkout when the receipt prints but persisting the sale fails"
   }
 }

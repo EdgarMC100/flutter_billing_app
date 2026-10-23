@@ -320,4 +320,80 @@ class AppLocalizationsEs extends AppLocalizations {
   String settingsAppVersionLabel(String version) {
     return 'Versión $version';
   }
+
+  @override
+  String get settingsSalesTitle => 'Reporte de ventas';
+
+  @override
+  String get settingsSalesSubtitle => 'Ventas por día, quincena y mes';
+
+  @override
+  String get reportAppBarTitle => 'Reporte de ventas';
+
+  @override
+  String get reportGroupDay => 'Día';
+
+  @override
+  String get reportGroupBiweekly => 'Quincena';
+
+  @override
+  String get reportGroupMonth => 'Mes';
+
+  @override
+  String get reportTotalLabel => 'Ventas totales';
+
+  @override
+  String reportAllTimeSalesCount(int count) {
+    return '$count ventas registradas';
+  }
+
+  @override
+  String get reportChartTitle => 'Por período';
+
+  @override
+  String reportPeriodSummary(int sales, int items) {
+    return '$sales ventas · $items artículos';
+  }
+
+  @override
+  String get reportEmptyTitle => 'Aún no hay ventas';
+
+  @override
+  String get reportEmptyMessage =>
+      'Cada recibo que imprimes en el checkout se registra aquí y se agrupa por día, quincena o mes.';
+
+  @override
+  String reportErrorPrefix(String message) {
+    return 'Error: $message';
+  }
+
+  @override
+  String get reportDetailEmptyTitle => 'No hay ventas en este período';
+
+  @override
+  String get reportDetailEmptyMessage =>
+      'No se registró nada entre estas fechas.';
+
+  @override
+  String get reportDetailMissingPeriod => 'Ese período ya no está disponible.';
+
+  @override
+  String reportDetailLineItemSummary(int quantity, String unitPrice) {
+    return '×$quantity @ $unitPrice';
+  }
+
+  @override
+  String get reportDetailSalesLabel => 'Ventas';
+
+  @override
+  String get reportDetailItemsLabel => 'Artículos';
+
+  @override
+  String reportDetailProductCount(int count) {
+    return '$count productos';
+  }
+
+  @override
+  String get billingSaleSaveFailed =>
+      'Recibo impreso, pero no se pudo registrar la venta';
 }

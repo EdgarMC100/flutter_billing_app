@@ -81,6 +81,9 @@ class _HomePageState extends State<HomePage> {
       final rawError = code.substring(BillingErrorCode.printFailedPrefix.length);
       return l10n.billingPrintFailedError(rawError);
     }
+    if (code == BillingErrorCode.saleSaveFailed) {
+      return l10n.billingSaleSaveFailed;
+    }
     return code;
   }
 

@@ -661,6 +661,132 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Version {version}'**
   String settingsAppVersionLabel(String version);
+
+  /// Title of the row that navigates to the sales report page
+  ///
+  /// In en, this message translates to:
+  /// **'Sales Report'**
+  String get settingsSalesTitle;
+
+  /// Subtitle of the Sales Report row
+  ///
+  /// In en, this message translates to:
+  /// **'Sales by day, biweekly & month'**
+  String get settingsSalesSubtitle;
+
+  /// App bar title of the sales report page
+  ///
+  /// In en, this message translates to:
+  /// **'Sales Report'**
+  String get reportAppBarTitle;
+
+  /// Segmented-control option grouping sales by calendar day
+  ///
+  /// In en, this message translates to:
+  /// **'Day'**
+  String get reportGroupDay;
+
+  /// Segmented-control option grouping sales by semi-monthly period (1st–15th / 16th–end of month)
+  ///
+  /// In en, this message translates to:
+  /// **'Biweekly'**
+  String get reportGroupBiweekly;
+
+  /// Segmented-control option grouping sales by calendar month
+  ///
+  /// In en, this message translates to:
+  /// **'Month'**
+  String get reportGroupMonth;
+
+  /// Label above the grand total amount on the sales report page
+  ///
+  /// In en, this message translates to:
+  /// **'Total Sales'**
+  String get reportTotalLabel;
+
+  /// Subtitle under the grand total showing how many sales exist in total
+  ///
+  /// In en, this message translates to:
+  /// **'{count} sales recorded'**
+  String reportAllTimeSalesCount(int count);
+
+  /// Section header above the bar chart of period totals
+  ///
+  /// In en, this message translates to:
+  /// **'By Period'**
+  String get reportChartTitle;
+
+  /// Subtitle of a period card showing its sale and item counts
+  ///
+  /// In en, this message translates to:
+  /// **'{sales} sales · {items} items'**
+  String reportPeriodSummary(int sales, int items);
+
+  /// Heading shown when no sales have been recorded
+  ///
+  /// In en, this message translates to:
+  /// **'No sales yet'**
+  String get reportEmptyTitle;
+
+  /// Explanatory text under reportEmptyTitle
+  ///
+  /// In en, this message translates to:
+  /// **'Every receipt you print at checkout is recorded here and grouped by day, biweekly or month.'**
+  String get reportEmptyMessage;
+
+  /// Prefix shown before a bloc error message on the sales report page
+  ///
+  /// In en, this message translates to:
+  /// **'Error: {message}'**
+  String reportErrorPrefix(String message);
+
+  /// Heading shown on the period detail page when the selected period has no sales
+  ///
+  /// In en, this message translates to:
+  /// **'No sales in this period'**
+  String get reportDetailEmptyTitle;
+
+  /// Explanatory text under reportDetailEmptyTitle
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing was recorded between these dates.'**
+  String get reportDetailEmptyMessage;
+
+  /// Shown when the period detail page is opened without a selected period
+  ///
+  /// In en, this message translates to:
+  /// **'That period is no longer available.'**
+  String get reportDetailMissingPeriod;
+
+  /// Line under a product name showing quantity sold and unit price
+  ///
+  /// In en, this message translates to:
+  /// **'×{quantity} @ {unitPrice}'**
+  String reportDetailLineItemSummary(int quantity, String unitPrice);
+
+  /// Label under the number of receipts in the period summary card
+  ///
+  /// In en, this message translates to:
+  /// **'Sales'**
+  String get reportDetailSalesLabel;
+
+  /// Label under the number of individual items in the period summary card
+  ///
+  /// In en, this message translates to:
+  /// **'Items'**
+  String get reportDetailItemsLabel;
+
+  /// Line-item count label shown at the bottom of a single sale card
+  ///
+  /// In en, this message translates to:
+  /// **'{count} products'**
+  String reportDetailProductCount(int count);
+
+  /// Error shown on checkout when the receipt prints but persisting the sale fails
+  ///
+  /// In en, this message translates to:
+  /// **'Receipt printed, but the sale could not be recorded'**
+  String get billingSaleSaveFailed;
 }
 
 class _AppLocalizationsDelegate

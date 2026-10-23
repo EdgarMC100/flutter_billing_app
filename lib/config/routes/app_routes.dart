@@ -3,6 +3,9 @@ import '../../features/billing/presentation/pages/home_page.dart';
 import '../../features/product/presentation/pages/product_list_page.dart';
 import '../../features/product/presentation/pages/add_product_page.dart';
 import '../../features/product/presentation/pages/edit_product_page.dart';
+import '../../features/report/presentation/pages/sales_report_page.dart';
+import '../../features/report/presentation/pages/sales_period_detail_page.dart';
+import '../../features/report/domain/sales_aggregator.dart';
 import '../../features/shop/presentation/pages/shop_details_page.dart';
 import '../../features/settings/presentation/pages/settings_page.dart';
 import '../../features/billing/presentation/pages/scanner_page.dart';
@@ -55,6 +58,24 @@ final router = GoRouter(
     GoRoute(
       path: '/shop',
       builder: (context, state) => const ShopDetailsPage(),
+    ),
+    GoRoute(
+      path: '/sales',
+      builder: (context, state) => const SalesReportPage(),
+      routes: [
+        GoRoute(
+          path: 'period',
+          builder: (context, state) {
+            final period = state.extra as SalesPeriod?;
+            if (period == null) {
+              // Cold deep link without a selected period; fall back to the
+              // report list rather than crashing.
+              return const SalesReportPage();
+            }
+            return SalesPeriodDetailPage(period: period);
+          },
+        ),
+      ],
     ),
   ],
 );
